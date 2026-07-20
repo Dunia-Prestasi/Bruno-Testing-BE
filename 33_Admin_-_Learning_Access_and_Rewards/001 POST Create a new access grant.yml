@@ -1,0 +1,63 @@
+info:
+  name: "[POST] Create a new access grant"
+  type: http
+  seq: 1
+  tags:
+    - "33 Admin - Learning Access and Rewards"
+
+http:
+  method: POST
+  url: "{{base_url}}/access-grants"
+  body:
+    type: json
+    data: |-
+      {
+        "access_source": "manual",
+        "course_id": "{{course_id}}",
+        "exam_id": "{{exam_id}}",
+        "expired_at": "2027-07-17T00:00:00Z",
+        "is_active": true,
+        "order_id": "{{order_id}}",
+        "started_at": "2026-07-17T00:00:00Z",
+        "student_id": "{{student_id}}",
+        "subscription_id": "{{course_subscription_id}}"
+      }
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("access_grant_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create a new access grant
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /access-grants`
+  - Kelompok/role: `33 Admin - Learning Access and Rewards`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

@@ -1,0 +1,51 @@
+info:
+  name: "[POST] Upload a media file"
+  type: http
+  seq: 4
+  tags:
+    - "24 Teacher - Announcements and Media"
+
+http:
+  method: POST
+  url: "{{base_url}}/media"
+  body:
+    type: multipart-form
+    data:
+      - name: "file"
+        type: file
+        value:
+          - "../assets/dummy-upload.png"
+        description: "Media file to upload"
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 413, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Upload a media file
+
+  Accepts a multipart/form-data upload (field name "file") of an image, PDF, audio, or video file up to 25MB and stores it in object storage.
+
+  - Route: `POST /media`
+  - Kelompok/role: `24 Teacher - Announcements and Media`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

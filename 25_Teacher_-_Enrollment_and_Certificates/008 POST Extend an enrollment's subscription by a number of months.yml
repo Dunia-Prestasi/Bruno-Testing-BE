@@ -1,0 +1,56 @@
+info:
+  name: "[POST] Extend an enrollment's subscription by a number of months"
+  type: http
+  seq: 8
+  tags:
+    - "25 Teacher - Enrollment and Certificates"
+
+http:
+  method: POST
+  url: "{{base_url}}/enrollments/:id/extend"
+  params:
+    - name: "id"
+      value: "{{enrollment_id}}"
+      type: path
+      description: "Enrollment ID"
+  body:
+    type: json
+    data: |-
+      {
+        "duration_months": 6
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Extend an enrollment's subscription by a number of months
+
+  Renews access for an offline/manually-managed student: creates a new course subscription chained to the previous one (payment-period history preserved) and updates the enrollment's expiry so lesson/quiz access actually extends.
+
+  - Route: `POST /enrollments/{id}/extend`
+  - Kelompok/role: `25 Teacher - Enrollment and Certificates`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

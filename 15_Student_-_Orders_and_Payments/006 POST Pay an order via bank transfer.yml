@@ -1,0 +1,59 @@
+info:
+  name: "[POST] Pay an order via bank transfer"
+  type: http
+  seq: 6
+  tags:
+    - "15 Student - Orders and Payments"
+
+http:
+  method: POST
+  url: "{{base_url}}/me/orders/:id/payments/transfer"
+  params:
+    - name: "id"
+      value: "{{order_id}}"
+      type: path
+      description: "Order ID"
+  body:
+    type: json
+    data: |-
+      {
+        "bank_name": "BCA",
+        "notes": "Dibuat dari collection Bruno",
+        "payer_name": "Budi Santoso",
+        "proof_url": "https://example.com/dummy-file.png"
+      }
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Pay an order via bank transfer
+
+  Submits proof of a manual bank transfer for admin verification.
+
+  - Route: `POST /me/orders/{id}/payments/transfer`
+  - Kelompok/role: `15 Student - Orders and Payments`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

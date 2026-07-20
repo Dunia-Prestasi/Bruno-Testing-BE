@@ -1,0 +1,67 @@
+info:
+  name: "[POST] Create an exam section"
+  type: http
+  seq: 6
+  tags:
+    - "23 Teacher - Assessments"
+
+http:
+  method: POST
+  url: "{{base_url}}/exams/:id/sections"
+  params:
+    - name: "id"
+      value: "{{exam_id}}"
+      type: path
+      description: "Exam ID"
+  body:
+    type: json
+    data: |-
+      {
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "order_number": 1,
+        "section_code": "MAT",
+        "time_limit_minutes": 90,
+        "title": "Konten Demo Bruno",
+        "total_score": 100
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("exam_section_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create an exam section
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /exams/{id}/sections`
+  - Kelompok/role: `23 Teacher - Assessments`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

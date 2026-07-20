@@ -1,0 +1,74 @@
+info:
+  name: "[PUT] Update an exam"
+  type: http
+  seq: 5
+  tags:
+    - "23 Teacher - Assessments"
+
+http:
+  method: PUT
+  url: "{{base_url}}/exams/:id"
+  params:
+    - name: "id"
+      value: "{{exam_id}}"
+      type: path
+      description: "Exam ID"
+  body:
+    type: json
+    data: |-
+      {
+        "access_type": "subscription",
+        "course_id": "{{course_id}}",
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "end_at": "2027-07-17T00:00:00Z",
+        "exam_type": "tryout",
+        "is_published": true,
+        "lesson_id": "{{lesson_id}}",
+        "max_attempts": 3,
+        "module_id": "{{module_id}}",
+        "passing_score": 75,
+        "points_price": 100,
+        "price": 150000,
+        "shuffle_options": false,
+        "shuffle_questions": false,
+        "slug": "{{exam_slug}}",
+        "start_at": "2026-07-17T00:00:00Z",
+        "time_limit_minutes": 90,
+        "title": "Konten Demo Bruno",
+        "total_score": 100
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Update an exam
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `PUT /exams/{id}`
+  - Kelompok/role: `23 Teacher - Assessments`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

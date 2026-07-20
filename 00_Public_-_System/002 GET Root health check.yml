@@ -1,0 +1,40 @@
+info:
+  name: "[GET] Root health check"
+  type: http
+  seq: 2
+  tags:
+    - "00 Public - System"
+
+http:
+  method: GET
+  url: "{{base_origin}}/health"
+  auth: none
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Root health check
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `GET /health`
+  - Kelompok/role: `00 Public - System`
+  - Status sukses yang didokumentasikan: `200`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

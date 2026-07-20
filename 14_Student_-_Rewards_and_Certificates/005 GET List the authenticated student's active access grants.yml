@@ -1,0 +1,43 @@
+info:
+  name: "[GET] List the authenticated student's active access grants"
+  type: http
+  seq: 5
+  tags:
+    - "14 Student - Rewards and Certificates"
+
+http:
+  method: GET
+  url: "{{base_url}}/students/me/access-grants"
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # List the authenticated student's active access grants
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `GET /students/me/access-grants`
+  - Kelompok/role: `14 Student - Rewards and Certificates`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

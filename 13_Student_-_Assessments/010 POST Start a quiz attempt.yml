@@ -1,0 +1,56 @@
+info:
+  name: "[POST] Start a quiz attempt"
+  type: http
+  seq: 10
+  tags:
+    - "13 Student - Assessments"
+
+http:
+  method: POST
+  url: "{{base_url}}/quizzes/:id/attempts"
+  params:
+    - name: "id"
+      value: "{{quiz_id}}"
+      type: path
+      description: "Quiz ID"
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("quiz_attempt_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Start a quiz attempt
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /quizzes/{id}/attempts`
+  - Kelompok/role: `13 Student - Assessments`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

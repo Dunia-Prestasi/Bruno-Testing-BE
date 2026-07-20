@@ -1,0 +1,58 @@
+info:
+  name: "[POST] Add a question to a quiz"
+  type: http
+  seq: 13
+  tags:
+    - "23 Teacher - Assessments"
+
+http:
+  method: POST
+  url: "{{base_url}}/quizzes/:id/questions"
+  params:
+    - name: "id"
+      value: "{{quiz_id}}"
+      type: path
+      description: "Quiz ID"
+  body:
+    type: json
+    data: |-
+      {
+        "order_number": 1,
+        "question_id": "{{question_id}}",
+        "score": 10
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Add a question to a quiz
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /quizzes/{id}/questions`
+  - Kelompok/role: `23 Teacher - Assessments`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

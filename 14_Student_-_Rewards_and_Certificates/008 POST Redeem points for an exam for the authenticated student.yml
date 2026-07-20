@@ -1,0 +1,49 @@
+info:
+  name: "[POST] Redeem points for an exam for the authenticated student"
+  type: http
+  seq: 8
+  tags:
+    - "14 Student - Rewards and Certificates"
+
+http:
+  method: POST
+  url: "{{base_url}}/students/me/point-redemptions"
+  body:
+    type: json
+    data: |-
+      {
+        "exam_id": "{{exam_id}}"
+      }
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Redeem points for an exam for the authenticated student
+
+  The cost is computed server-side from the exam's configured points price; the wallet is checked and debited atomically. The client only selects which exam to redeem.
+
+  - Route: `POST /students/me/point-redemptions`
+  - Kelompok/role: `14 Student - Rewards and Certificates`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

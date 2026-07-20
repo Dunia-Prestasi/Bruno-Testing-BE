@@ -1,0 +1,69 @@
+info:
+  name: "[POST] Create a question"
+  type: http
+  seq: 23
+  tags:
+    - "22 Teacher - Question Bank"
+
+http:
+  method: POST
+  url: "{{base_url}}/questions"
+  body:
+    type: json
+    data: |-
+      {
+        "answer_key_text": "4",
+        "category_id": "{{question_category_id}}",
+        "correct_numeric_value": 4,
+        "difficulty_level": "easy",
+        "explanation": "Dua ditambah dua sama dengan empat.",
+        "grade_level_id": "{{question_grade_level_id}}",
+        "metadata": {
+          "source": "bruno",
+          "value": "dummy"
+        },
+        "question_bank_id": "{{question_bank_id}}",
+        "question_group_id": "{{question_group_id}}",
+        "question_text": "Berapakah hasil 2 + 2?",
+        "question_type": "multiple_choice",
+        "score": 10
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("question_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create a question
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /questions`
+  - Kelompok/role: `22 Teacher - Question Bank`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

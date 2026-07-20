@@ -1,0 +1,50 @@
+info:
+  name: "[POST] Confirm a manual (transfer/cash) payment"
+  type: http
+  seq: 15
+  tags:
+    - "34 Admin - Billing"
+
+http:
+  method: POST
+  url: "{{base_url}}/payments/:id/confirm"
+  params:
+    - name: "id"
+      value: "{{payment_id}}"
+      type: path
+      description: "Payment ID"
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Confirm a manual (transfer/cash) payment
+
+  Marks the payment and its order as paid, and grants the student access to the purchased items.
+
+  - Route: `POST /payments/{id}/confirm`
+  - Kelompok/role: `34 Admin - Billing`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

@@ -1,0 +1,48 @@
+info:
+  name: "Login Student (simpan token)"
+  type: http
+  seq: 3
+  tags:
+    - setup
+
+http:
+  method: POST
+  url: "{{base_url}}/auth/login"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "{{student_email}}",
+        "password": "{{student_password}}"
+      }
+  auth: none
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status === 200 && res.body && res.body.data) {
+          bru.setEnvVar("student_access_token", res.body.data.access_token || "");
+          bru.setEnvVar("student_refresh_token", res.body.data.refresh_token || "");
+          bru.setEnvVar("access_token", res.body.data.access_token || "");
+          bru.setEnvVar("refresh_token", res.body.data.refresh_token || "");
+          if (res.body.data.user && res.body.data.user.id) {
+            bru.setEnvVar("student_user_id", res.body.data.user.id);
+            bru.setEnvVar("user_id", res.body.data.user.id);
+          }
+        }
+    - type: tests
+      code: |-
+        test("login berhasil", function() {
+          expect(res.status).to.equal(200);
+          expect(res.body.data.access_token).to.be.a("string");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  Login helper untuk mengisi environment `student_access_token`, `student_refresh_token`, dan `student_user_id` secara otomatis.

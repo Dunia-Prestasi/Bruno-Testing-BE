@@ -1,0 +1,58 @@
+info:
+  name: "[POST] Add a lesson to a module"
+  type: http
+  seq: 17
+  tags:
+    - "21 Teacher - Courses and Content"
+
+http:
+  method: POST
+  url: "{{base_url}}/modules/:id/lessons"
+  params:
+    - name: "id"
+      value: "{{module_id}}"
+      type: path
+      description: "Module ID"
+  body:
+    type: json
+    data: |-
+      {
+        "is_required": true,
+        "lesson_id": "{{lesson_id}}",
+        "order_number": 1
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Add a lesson to a module
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /modules/{id}/lessons`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

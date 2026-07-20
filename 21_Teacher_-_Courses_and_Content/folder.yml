@@ -1,0 +1,7 @@
+info:
+  name: "21 Teacher - Courses and Content"
+  type: folder
+  seq: 14
+
+request:
+  auth: inherit

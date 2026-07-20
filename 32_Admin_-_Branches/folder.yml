@@ -1,0 +1,7 @@
+info:
+  name: "32 Admin - Branches"
+  type: folder
+  seq: 21
+
+request:
+  auth: inherit

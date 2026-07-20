@@ -1,0 +1,7 @@
+info:
+  name: "22 Teacher - Question Bank"
+  type: folder
+  seq: 15
+
+request:
+  auth: inherit

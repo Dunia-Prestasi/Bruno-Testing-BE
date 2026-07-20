@@ -1,0 +1,7 @@
+info:
+  name: "23 Teacher - Assessments"
+  type: folder
+  seq: 16
+
+request:
+  auth: inherit

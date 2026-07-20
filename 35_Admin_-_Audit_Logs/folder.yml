@@ -1,0 +1,7 @@
+info:
+  name: "35 Admin - Audit Logs"
+  type: folder
+  seq: 24
+
+request:
+  auth: inherit

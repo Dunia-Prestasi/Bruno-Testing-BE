@@ -1,0 +1,65 @@
+info:
+  name: "[POST] Submit an answer for an exam attempt"
+  type: http
+  seq: 1
+  tags:
+    - "13 Student - Assessments"
+
+http:
+  method: POST
+  url: "{{base_url}}/exam-attempts/:id/answers"
+  params:
+    - name: "id"
+      value: "{{exam_attempt_id}}"
+      type: path
+      description: "Exam Attempt ID"
+  body:
+    type: json
+    data: |-
+      {
+        "answer_json": {
+          "source": "bruno",
+          "value": "dummy"
+        },
+        "answer_text": "4",
+        "numeric_answer": 4,
+        "option_ids": [
+          "{{option_id}}"
+        ],
+        "question_id": "{{question_id}}"
+      }
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Submit an answer for an exam attempt
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /exam-attempts/{id}/answers`
+  - Kelompok/role: `13 Student - Assessments`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

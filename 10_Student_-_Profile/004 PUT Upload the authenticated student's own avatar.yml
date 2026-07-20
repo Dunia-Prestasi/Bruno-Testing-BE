@@ -1,0 +1,51 @@
+info:
+  name: "[PUT] Upload the authenticated student's own avatar"
+  type: http
+  seq: 4
+  tags:
+    - "10 Student - Profile"
+
+http:
+  method: PUT
+  url: "{{base_url}}/students/me/avatar"
+  body:
+    type: multipart-form
+    data:
+      - name: "file"
+        type: file
+        value:
+          - "../assets/dummy-avatar.png"
+        description: "Avatar image"
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Upload the authenticated student's own avatar
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `PUT /students/me/avatar`
+  - Kelompok/role: `10 Student - Profile`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

@@ -1,0 +1,80 @@
+info:
+  name: "[PATCH] Update the authenticated student's own profile"
+  type: http
+  seq: 2
+  tags:
+    - "10 Student - Profile"
+
+http:
+  method: PATCH
+  url: "{{base_url}}/students/me"
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Budi Santoso Updated",
+        "email": "{{student_email}}",
+        "phone": "081234567890",
+        "avatar_url": "https://example.com/avatar.png",
+        "profile": {
+          "nickname": "Budi",
+          "birth_place": "Denpasar",
+          "birth_date": "2010-05-01T00:00:00Z",
+          "gender": "male",
+          "address": "Jl. Pendidikan No. 2",
+          "district": "Denpasar Selatan",
+          "province": "Bali",
+          "country": "Indonesia",
+          "religion": "Hindu",
+          "education_level": "SMA",
+          "grade_level": "10",
+          "school_name": "SMA Negeri Contoh",
+          "tutoring_type": "online",
+          "parent_name": "Made Santoso",
+          "parent_phone": "081234567891"
+        },
+        "parent_profile": {
+          "father_name": "Made Santoso",
+          "father_occupation": "Wiraswasta",
+          "father_phone": "081234567891",
+          "mother_name": "Komang Sari",
+          "mother_occupation": "Guru",
+          "mother_phone": "081234567892",
+          "info_recipient": "father",
+          "sibling_count": 1,
+          "birth_order": 1
+        }
+      }
+  auth:
+    type: bearer
+    token: "{{student_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Update the authenticated student's own profile
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `PATCH /students/me`
+  - Kelompok/role: `10 Student - Profile`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{student_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

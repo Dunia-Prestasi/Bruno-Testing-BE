@@ -1,0 +1,138 @@
+name: Local
+variables:
+  - name: base_origin
+    value: http://localhost:8080
+  - name: base_url
+    value: http://localhost:8080/api/v1
+  - name: login_email
+    value: baguswedanta17@gmail.com
+  - name: login_password
+    value: superadmin123
+  - name: admin_email
+    value: superadmin@duniaprestasi.com
+  - name: admin_password
+    value: superadmin123
+  - name: teacher_email
+    value: teacher@example.com
+  - name: teacher_password
+    value: change-me
+  - name: student_email
+    value: student.bruno@example.com
+  - name: student_password
+    value: BrunoTest123!
+  - name: signup_email
+    value: baguswedanta17@gmail.com
+  - name: new_user_email
+    value: teacher.bruno@example.com
+  - name: dummy_password
+    value: BrunoTest123!
+  - name: access_token
+    value: ""
+  - name: refresh_token
+    value: ""
+  - name: admin_access_token
+    value: ""
+  - name: admin_refresh_token
+    value: ""
+  - name: teacher_access_token
+    value: ""
+  - name: teacher_refresh_token
+    value: ""
+  - name: student_access_token
+    value: ""
+  - name: student_refresh_token
+    value: ""
+  - name: password_reset_token
+    value: replace-with-token-from-email
+  - name: email_verification_token
+    value: replace-with-token-from-email
+  - name: course_slug
+    value: course-bruno-2026
+  - name: question_bank_slug
+    value: bank-soal-bruno-2026
+  - name: exam_slug
+    value: tryout-bruno-2026
+  - name: question_grade_level_code
+    value: SMA-12
+  - name: coupon_code
+    value: BRUNO10
+  - name: audit_schema
+    value: public
+  - name: audit_table
+    value: users
+  - name: user_id
+    value: 00000000-0000-4000-8000-000000000001
+  - name: admin_user_id
+    value: 00000000-0000-4000-8000-000000000002
+  - name: teacher_user_id
+    value: 00000000-0000-4000-8000-000000000003
+  - name: student_user_id
+    value: 00000000-0000-4000-8000-000000000004
+  - name: student_id
+    value: 00000000-0000-4000-8000-000000000005
+  - name: entity_id
+    value: 00000000-0000-4000-8000-000000000006
+  - name: branch_id
+    value: 00000000-0000-4000-8000-000000000007
+  - name: registration_id
+    value: 00000000-0000-4000-8000-000000000008
+  - name: course_id
+    value: 00000000-0000-4000-8000-000000000009
+  - name: batch_id
+    value: 00000000-0000-4000-8000-000000000010
+  - name: module_id
+    value: 00000000-0000-4000-8000-000000000011
+  - name: lesson_id
+    value: 00000000-0000-4000-8000-000000000012
+  - name: quiz_id
+    value: 00000000-0000-4000-8000-000000000013
+  - name: quiz_attempt_id
+    value: 00000000-0000-4000-8000-000000000014
+  - name: exam_id
+    value: 00000000-0000-4000-8000-000000000015
+  - name: exam_section_id
+    value: 00000000-0000-4000-8000-000000000016
+  - name: exam_attempt_id
+    value: 00000000-0000-4000-8000-000000000017
+  - name: question_bank_id
+    value: 00000000-0000-4000-8000-000000000018
+  - name: question_category_id
+    value: 00000000-0000-4000-8000-000000000019
+  - name: question_grade_level_id
+    value: 00000000-0000-4000-8000-000000000020
+  - name: question_group_id
+    value: 00000000-0000-4000-8000-000000000021
+  - name: question_id
+    value: 00000000-0000-4000-8000-000000000022
+  - name: option_id
+    value: 00000000-0000-4000-8000-000000000023
+  - name: course_subscription_id
+    value: 00000000-0000-4000-8000-000000000024
+  - name: enrollment_id
+    value: 00000000-0000-4000-8000-000000000025
+  - name: subscription_plan_id
+    value: 00000000-0000-4000-8000-000000000026
+  - name: order_id
+    value: 00000000-0000-4000-8000-000000000027
+  - name: payment_id
+    value: 00000000-0000-4000-8000-000000000028
+  - name: coupon_id
+    value: 00000000-0000-4000-8000-000000000029
+  - name: certificate_id
+    value: 00000000-0000-4000-8000-000000000030
+  - name: access_grant_id
+    value: 00000000-0000-4000-8000-000000000031
+  - name: reward_rule_id
+    value: 00000000-0000-4000-8000-000000000032
+  - name: announcement_id
+    value: 00000000-0000-4000-8000-000000000033
+  - name: course_review_id
+    value: 00000000-0000-4000-8000-000000000034
+  - name: role_id
+    value: 00000000-0000-4000-8000-000000000035
+  - name: permission_id
+    value: 00000000-0000-4000-8000-000000000036
+  - name: audit_log_id
+    value: 00000000-0000-4000-8000-000000000037
+  - name: resource_id
+    value: 00000000-0000-4000-8000-000000000038

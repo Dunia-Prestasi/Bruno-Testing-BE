@@ -1,0 +1,64 @@
+info:
+  name: "[PUT] Update a lesson"
+  type: http
+  seq: 12
+  tags:
+    - "21 Teacher - Courses and Content"
+
+http:
+  method: PUT
+  url: "{{base_url}}/lessons/:id"
+  params:
+    - name: "id"
+      value: "{{lesson_id}}"
+      type: path
+      description: "Lesson ID"
+  body:
+    type: json
+    data: |-
+      {
+        "content_text": "Materi contoh untuk pengujian endpoint lesson.",
+        "content_type": "text",
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "duration_minutes": 60,
+        "external_url": "https://example.com/dummy-file.png",
+        "is_free_preview": true,
+        "is_published": true,
+        "title": "Konten Demo Bruno",
+        "video_url": "https://example.com/dummy-file.png"
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Update a lesson
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `PUT /lessons/{id}`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

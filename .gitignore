@@ -1,0 +1,6 @@
+# Secrets
+.env*
+
+# Dependencies and reports
+node_modules
+reports

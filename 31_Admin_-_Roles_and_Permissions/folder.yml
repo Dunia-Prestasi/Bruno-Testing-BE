@@ -1,0 +1,7 @@
+info:
+  name: "31 Admin - Roles and Permissions"
+  type: folder
+  seq: 20
+
+request:
+  auth: inherit

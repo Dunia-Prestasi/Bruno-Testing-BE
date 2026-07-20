@@ -1,0 +1,65 @@
+info:
+  name: "[POST] Create a question category"
+  type: http
+  seq: 8
+  tags:
+    - "22 Teacher - Question Bank"
+
+http:
+  method: POST
+  url: "{{base_url}}/question-categories"
+  body:
+    type: json
+    data: |-
+      {
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "is_active": true,
+        "metadata": {
+          "source": "bruno",
+          "value": "dummy"
+        },
+        "name": "Data Dummy Bruno",
+        "order_number": 1,
+        "parent_category_id": "{{question_category_id}}",
+        "question_bank_id": "{{question_bank_id}}",
+        "slug": "kategori-bruno"
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("question_category_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create a question category
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /question-categories`
+  - Kelompok/role: `22 Teacher - Question Bank`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

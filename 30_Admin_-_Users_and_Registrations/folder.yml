@@ -1,0 +1,7 @@
+info:
+  name: "30 Admin - Users and Registrations"
+  type: folder
+  seq: 19
+
+request:
+  auth: inherit

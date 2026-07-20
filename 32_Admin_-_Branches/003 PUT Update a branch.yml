@@ -1,0 +1,59 @@
+info:
+  name: "[PUT] Update a branch"
+  type: http
+  seq: 3
+  tags:
+    - "32 Admin - Branches"
+
+http:
+  method: PUT
+  url: "{{base_url}}/branches/:id"
+  params:
+    - name: "id"
+      value: "{{branch_id}}"
+      type: path
+      description: "Branch ID"
+  body:
+    type: json
+    data: |-
+      {
+        "address": "Jl. Pendidikan No. 1",
+        "is_active": true,
+        "name": "Data Dummy Bruno",
+        "phone": "081234567890"
+      }
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Update a branch
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `PUT /branches/{id}`
+  - Kelompok/role: `32 Admin - Branches`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

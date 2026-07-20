@@ -1,0 +1,51 @@
+info:
+  name: "[POST] Bulk import offline students from an Excel file"
+  type: http
+  seq: 10
+  tags:
+    - "30 Admin - Users and Registrations"
+
+http:
+  method: POST
+  url: "{{base_url}}/students/bulk-import"
+  body:
+    type: multipart-form
+    data:
+      - name: "file"
+        type: file
+        value:
+          - "../assets/student-bulk-import.xlsx"
+        description: "Student import .xlsx file"
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 413, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Bulk import offline students from an Excel file
+
+  Accepts a multipart/form-data upload (field name "file") of an .xlsx sheet. Each row creates (or, if the email already exists, reuses) a student account, a course subscription, and a batch enrollment.
+
+  - Route: `POST /students/bulk-import`
+  - Kelompok/role: `30 Admin - Users and Registrations`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

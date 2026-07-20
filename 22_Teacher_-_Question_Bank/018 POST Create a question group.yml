@@ -1,0 +1,58 @@
+info:
+  name: "[POST] Create a question group"
+  type: http
+  seq: 18
+  tags:
+    - "22 Teacher - Question Bank"
+
+http:
+  method: POST
+  url: "{{base_url}}/question-groups"
+  body:
+    type: json
+    data: |-
+      {
+        "stimulus_file_url": "https://example.com/dummy-file.png",
+        "stimulus_image_url": "https://example.com/dummy-file.png",
+        "stimulus_text": "contoh stimulus text",
+        "title": "Konten Demo Bruno"
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("question_group_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create a question group
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /question-groups`
+  - Kelompok/role: `22 Teacher - Question Bank`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

@@ -1,0 +1,7 @@
+info:
+  name: "14 Student - Rewards and Certificates"
+  type: folder
+  seq: 11
+
+request:
+  auth: inherit

@@ -1,0 +1,7 @@
+info:
+  name: "25 Teacher - Enrollment and Certificates"
+  type: folder
+  seq: 18
+
+request:
+  auth: inherit
