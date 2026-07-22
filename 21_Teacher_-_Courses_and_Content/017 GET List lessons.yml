@@ -1,27 +1,32 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[GET] List lessons"
   type: http
-  seq: 10
+  seq: 17
   tags:
-    - 31 Admin - Roles and Permissions
+    - "21 Teacher - Courses and Content"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: GET
+  url: "{{base_url}}/lessons"
   params:
-    - name: id
-      value: "{{role_id}}"
-      type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+    - name: "published_only"
+      value: "true"
+      type: query
+      description: "Filter to published lessons only (default true)"
+      disabled: true
+    - name: "limit"
+      value: "20"
+      type: query
+      description: "Page limit (default 20, max 100)"
+      disabled: true
+    - name: "offset"
+      value: "0"
+      type: query
+      description: "Page offset (default 0)"
+      disabled: true
   auth:
     type: bearer
-    token: "{{admin_access_token}}"
+    token: "{{teacher_access_token}}"
 
 runtime:
   scripts:
@@ -42,14 +47,14 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # List lessons
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Lists lessons, published-only by default.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `GET /lessons`
+  - Kelompok/role: `21 Teacher - Courses and Content`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{admin_access_token}}`
+  - Bearer token: environment `{{teacher_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 

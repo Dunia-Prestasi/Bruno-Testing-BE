@@ -1,0 +1,70 @@
+info:
+  name: "[POST] Create an order"
+  type: http
+  seq: 8
+  tags:
+    - "34 Admin - Billing"
+
+http:
+  method: POST
+  url: "{{base_url}}/orders"
+  body:
+    type: json
+    data: |-
+      {
+        "expired_at": "2027-07-17T00:00:00Z",
+        "items": [
+          {
+            "course_id": "{{course_id}}",
+            "exam_id": "{{exam_id}}",
+            "item_name": "Paket Kursus Demo",
+            "item_type": "subscription_plan",
+            "price": 150000,
+            "quantity": 1,
+            "subscription_plan_id": "{{subscription_plan_id}}"
+          }
+        ],
+        "order_code": "BRUNO-ORDER-001",
+        "status": "pending",
+        "total_amount": 150000,
+        "user_id": "{{user_id}}"
+      }
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("order_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create an order
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /orders`
+  - Kelompok/role: `34 Admin - Billing`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

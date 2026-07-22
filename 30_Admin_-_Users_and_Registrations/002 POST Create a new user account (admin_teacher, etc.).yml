@@ -1,23 +1,25 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[POST] Create a new user account (admin/teacher, etc.)"
   type: http
-  seq: 10
+  seq: 3
   tags:
-    - 31 Admin - Roles and Permissions
+    - 30 Admin - Users and Registrations
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
-  params:
-    - name: id
-      value: "{{role_id}}"
-      type: path
-      description: Role ID
+  method: POST
+  url: "{{base_url}}/admin/users"
   body:
     type: json
     data: |-
       {
-        "name": "Data Dummy Update"
+        "email": "{{teacher_email}}",
+        "name": "Data Dummy Bruno3",
+        "password": "{{teacher_password}}",
+        "phone": "081234567890",
+        "role": "teacher",
+        "roles": [
+          "teacher"
+        ]
       }
   auth:
     type: bearer
@@ -32,7 +34,7 @@ runtime:
         });
 
         test("status sesuai kontrak atau middleware aplikasi", function() {
-          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
         });
 
 settings:
@@ -42,15 +44,13 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Create a new user account (admin/teacher, etc.)
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
-  - Status sukses yang didokumentasikan: `200`
+  - Route: `POST /admin/users`
+  - Kelompok/role: `30 Admin - Users and Registrations`
+  - Status sukses yang didokumentasikan: `201`
   - Bearer token: environment `{{admin_access_token}}`
-
-  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

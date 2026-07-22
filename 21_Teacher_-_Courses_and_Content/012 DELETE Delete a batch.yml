@@ -1,27 +1,25 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[DELETE] Delete a batch"
   type: http
-  seq: 10
+  seq: 12
   tags:
-    - 31 Admin - Roles and Permissions
+    - "21 Teacher - Courses and Content"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: DELETE
+  url: "{{base_url}}/courses/:id/batches/:batchID"
   params:
-    - name: id
-      value: "{{role_id}}"
+    - name: "id"
+      value: "{{course_id}}"
       type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+      description: "Course ID"
+    - name: "batchID"
+      value: "{{batch_id}}"
+      type: path
+      description: "Batch ID"
   auth:
     type: bearer
-    token: "{{admin_access_token}}"
+    token: "{{teacher_access_token}}"
 
 runtime:
   scripts:
@@ -32,7 +30,7 @@ runtime:
         });
 
         test("status sesuai kontrak atau middleware aplikasi", function() {
-          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+          expect([204, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
         });
 
 settings:
@@ -42,14 +40,14 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Delete a batch
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
-  - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{admin_access_token}}`
+  - Route: `DELETE /courses/{id}/batches/{batchID}`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `204`
+  - Bearer token: environment `{{teacher_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 

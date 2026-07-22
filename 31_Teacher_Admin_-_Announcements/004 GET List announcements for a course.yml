@@ -1,24 +1,28 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[GET] List announcements for a course"
   type: http
-  seq: 10
+  seq: 4
   tags:
-    - 31 Admin - Roles and Permissions
+    - "31 Teacher & Admin - Announcements"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: GET
+  url: "{{base_url}}/courses/:id/announcements"
   params:
-    - name: id
-      value: "{{role_id}}"
+    - name: "id"
+      value: "{{course_id}}"
       type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+      description: "Course ID"
+    - name: "limit"
+      value: "20"
+      type: query
+      description: "Page limit (default 20, max 100)"
+      disabled: true
+    - name: "offset"
+      value: "0"
+      type: query
+      description: "Page offset (default 0)"
+      disabled: true
   auth:
     type: bearer
     token: "{{admin_access_token}}"
@@ -42,12 +46,12 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # List announcements for a course
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Lists announcements targetting a specific course.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `GET /courses/{id}/announcements`
+  - Kelompok/role: `31 Teacher & Admin - Announcements`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
 

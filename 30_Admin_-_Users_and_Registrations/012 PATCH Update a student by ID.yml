@@ -1,20 +1,24 @@
 info:
-  name: "[PATCH] Update the authenticated student's own profile"
+  name: "[PATCH] Update a student by ID"
   type: http
-  seq: 2
+  seq: 13
   tags:
-    - 10 Student - Profile
+    - 30 Admin - Users and Registrations
 
 http:
   method: PATCH
-  url: "{{base_url}}/students/me"
+  url: "{{base_url}}/students/:id"
+  params:
+    - name: id
+      value: "{{student_id}}"
+      type: path
+      description: Student ID
   body:
     type: json
     data: |-
       {
         "name": "Budi Santoso Updated",
-        "email": "baguswedanta17@gmail.com",
-        "phone": "08123456781112",
+        "phone": "081234567890",
         "avatar_url": "https://example.com/avatar.png",
         "profile": {
           "nickname": "Budi",
@@ -47,7 +51,7 @@ http:
       }
   auth:
     type: bearer
-    token: "{{student_access_token}}"
+    token: "{{admin_access_token}}"
 
 runtime:
   scripts:
@@ -68,13 +72,17 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update the authenticated student's own profile
+  # Update a student by ID
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PATCH /students/me`
-  - Kelompok/role: `10 Student - Profile`
+  - Route: `PATCH /students/{id}`
+  - Kelompok/role: `30 Admin - Users and Registrations`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{student_access_token}}`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Email tidak bisa diubah lewat endpoint ini (field `email` sudah tidak diterima).
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

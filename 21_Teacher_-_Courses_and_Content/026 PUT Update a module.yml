@@ -1,27 +1,31 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[PUT] Update a module"
   type: http
-  seq: 10
+  seq: 26
   tags:
-    - 31 Admin - Roles and Permissions
+    - "21 Teacher - Courses and Content"
 
 http:
   method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  url: "{{base_url}}/modules/:id"
   params:
-    - name: id
-      value: "{{role_id}}"
+    - name: "id"
+      value: "{{module_id}}"
       type: path
-      description: Role ID
+      description: "Module ID"
   body:
     type: json
     data: |-
       {
-        "name": "Data Dummy Update"
+        "course_id": "{{course_id}}",
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "is_published": true,
+        "order_number": 1,
+        "title": "Konten Demo Bruno"
       }
   auth:
     type: bearer
-    token: "{{admin_access_token}}"
+    token: "{{teacher_access_token}}"
 
 runtime:
   scripts:
@@ -42,14 +46,14 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Update a module
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `PUT /modules/{id}`
+  - Kelompok/role: `21 Teacher - Courses and Content`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{admin_access_token}}`
+  - Bearer token: environment `{{teacher_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 

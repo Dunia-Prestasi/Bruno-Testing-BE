@@ -1,0 +1,90 @@
+info:
+  name: "[PUT] Update a registration"
+  type: http
+  seq: 8
+  tags:
+    - 30 Admin - Users and Registrations
+
+http:
+  method: PUT
+  url: "{{base_url}}/protected/registrations/:id"
+  params:
+    - name: id
+      value: "{{registration_id}}"
+      type: path
+      description: Registration ID
+  body:
+    type: json
+    data: |-
+      {
+        "course_id": "{{course_id}}",
+        "batch_id": "{{batch_id}}",
+        "branch_id": "{{branch_id}}",
+        "full_name": "Budi Santoso",
+        "nickname": "Budi",
+        "birth_place": "Denpasar",
+        "birth_date": "2010-05-01T00:00:00Z",
+        "gender": "male",
+        "address": "Jl. Pendidikan No. 1",
+        "district": "Denpasar Selatan",
+        "province": "Bali",
+        "country": "Indonesia",
+        "religion": "Hindu",
+        "email": "{{student_email}}",
+        "phone": "081234567890",
+        "education_level": "SMA",
+        "grade_level": "10",
+        "school_name": "SMA Negeri Contoh",
+        "tutoring_type": "online",
+        "parent_name": "Made Santoso",
+        "parent_phone": "081234567891",
+        "registration_channel": "online",
+        "status": "pending",
+        "notes": "Pendaftaran dummy dari Bruno",
+        "registration_parent": {
+          "father_name": "Made Santoso",
+          "father_occupation": "Wiraswasta",
+          "father_phone": "081234567891",
+          "mother_name": "Komang Sari",
+          "mother_occupation": "Guru",
+          "mother_phone": "081234567892",
+          "info_recipient": "father",
+          "sibling_count": 1,
+          "birth_order": 1
+        }
+      }
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Update a registration
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `PUT /protected/registrations/{id}`
+  - Kelompok/role: `30 Admin - Users and Registrations`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

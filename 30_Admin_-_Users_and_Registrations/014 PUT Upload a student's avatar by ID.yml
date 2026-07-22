@@ -1,24 +1,29 @@
 info:
-  name: "[PUT] Upload the authenticated student's own avatar"
+  name: "[PUT] Upload a student's avatar by ID"
   type: http
-  seq: 4
+  seq: 15
   tags:
-    - 10 Student - Profile
+    - 30 Admin - Users and Registrations
 
 http:
   method: PUT
-  url: "{{base_url}}/students/me/avatar"
+  url: "{{base_url}}/students/:id/avatar"
+  params:
+    - name: id
+      value: "{{student_id}}"
+      type: path
+      description: Student ID
   body:
     type: multipart-form
     data:
       - name: file
         type: file
         value:
-          - C:\Users\wedanta\Downloads\logo(1).png
-        contentType: image/png
+          - ../assets/dummy-avatar.png
+        description: Avatar image
   auth:
     type: bearer
-    token: "{{student_access_token}}"
+    token: "{{admin_access_token}}"
 
 runtime:
   scripts:
@@ -39,13 +44,15 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Upload the authenticated student's own avatar
+  # Upload a student's avatar by ID
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /students/me/avatar`
-  - Kelompok/role: `10 Student - Profile`
+  - Route: `PUT /students/{id}/avatar`
+  - Kelompok/role: `30 Admin - Users and Registrations`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{student_access_token}}`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

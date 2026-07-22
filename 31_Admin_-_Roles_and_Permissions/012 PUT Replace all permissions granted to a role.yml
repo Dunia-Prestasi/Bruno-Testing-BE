@@ -1,23 +1,25 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[PUT] Replace all permissions granted to a role"
   type: http
-  seq: 10
+  seq: 12
   tags:
-    - 31 Admin - Roles and Permissions
+    - "31 Admin - Roles and Permissions"
 
 http:
   method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  url: "{{base_url}}/rbac/roles/:id/permissions"
   params:
-    - name: id
+    - name: "id"
       value: "{{role_id}}"
       type: path
-      description: Role ID
+      description: "Role ID"
   body:
     type: json
     data: |-
       {
-        "name": "Data Dummy Update"
+        "permission_ids": [
+          "{{permission_id}}"
+        ]
       }
   auth:
     type: bearer
@@ -42,11 +44,11 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Replace all permissions granted to a role
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Sets a role's full permission set in a single call. permission_ids is the complete desired set (e.g. everything currently checked in a permission checklist UI), not a delta - permissions missing from the list are revoked and new ones are granted in one transaction.
 
-  - Route: `PUT /rbac/roles/{id}`
+  - Route: `PUT /rbac/roles/{id}/permissions`
   - Kelompok/role: `31 Admin - Roles and Permissions`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`

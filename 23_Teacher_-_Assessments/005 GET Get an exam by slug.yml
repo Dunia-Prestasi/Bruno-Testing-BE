@@ -1,24 +1,21 @@
 info:
-  name: "[PUT] Upload the authenticated student's own avatar"
+  name: "[GET] Get an exam by slug"
   type: http
-  seq: 4
+  seq: 5
   tags:
-    - 10 Student - Profile
+    - "23 Teacher - Assessments"
 
 http:
-  method: PUT
-  url: "{{base_url}}/students/me/avatar"
-  body:
-    type: multipart-form
-    data:
-      - name: file
-        type: file
-        value:
-          - C:\Users\wedanta\Downloads\logo(1).png
-        contentType: image/png
+  method: GET
+  url: "{{base_url}}/exams/by-slug/:slug"
+  params:
+    - name: "slug"
+      value: "{{exam_slug}}"
+      type: path
+      description: "Exam Slug"
   auth:
     type: bearer
-    token: "{{student_access_token}}"
+    token: "{{teacher_access_token}}"
 
 runtime:
   scripts:
@@ -39,13 +36,15 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Upload the authenticated student's own avatar
+  # Get an exam by slug
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Retrieves a single exam by its URL slug, with the same visibility rules as retrieving by ID.
 
-  - Route: `PUT /students/me/avatar`
-  - Kelompok/role: `10 Student - Profile`
+  - Route: `GET /exams/by-slug/{slug}`
+  - Kelompok/role: `23 Teacher - Assessments`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{student_access_token}}`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

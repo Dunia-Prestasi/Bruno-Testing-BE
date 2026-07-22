@@ -1,29 +1,32 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[PATCH] Activate or deactivate a student"
   type: http
-  seq: 10
+  seq: 16
   tags:
-    - 31 Admin - Roles and Permissions
+    - 30 Admin - Users and Registrations
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: PATCH
+  url: "{{base_url}}/students/:id/status"
   params:
     - name: id
-      value: "{{role_id}}"
+      value: 411e1323-acf3-4d17-951a-95fb35d50022
       type: path
-      description: Role ID
+      description: Student ID
   body:
     type: json
     data: |-
       {
-        "name": "Data Dummy Update"
+        "is_active": true
       }
   auth:
     type: bearer
     token: "{{admin_access_token}}"
 
 runtime:
+  variables:
+    - name: base_url
+      value: localhost:8080/api/v1
   scripts:
     - type: tests
       code: |-
@@ -42,12 +45,12 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Activate or deactivate a student
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `PATCH /students/{id}/status`
+  - Kelompok/role: `30 Admin - Users and Registrations`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
 

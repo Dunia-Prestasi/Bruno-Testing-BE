@@ -1,24 +1,24 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[GET] List registrations"
   type: http
-  seq: 10
+  seq: 4
   tags:
-    - 31 Admin - Roles and Permissions
+    - 30 Admin - Users and Registrations
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: GET
+  url: "{{base_url}}/protected/registrations"
   params:
-    - name: id
-      value: "{{role_id}}"
-      type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+    - name: limit
+      value: "20"
+      type: query
+      description: Page limit (default 10)
+      disabled: true
+    - name: offset
+      value: "0"
+      type: query
+      description: Page offset (default 0)
+      disabled: true
   auth:
     type: bearer
     token: "{{admin_access_token}}"
@@ -32,7 +32,7 @@ runtime:
         });
 
         test("status sesuai kontrak atau middleware aplikasi", function() {
-          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+          expect([200, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
         });
 
 settings:
@@ -42,12 +42,12 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # List registrations
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `GET /protected/registrations`
+  - Kelompok/role: `30 Admin - Users and Registrations`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
 

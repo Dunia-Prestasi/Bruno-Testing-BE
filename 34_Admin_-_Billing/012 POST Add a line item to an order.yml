@@ -1,23 +1,29 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[POST] Add a line item to an order"
   type: http
-  seq: 10
+  seq: 12
   tags:
-    - 31 Admin - Roles and Permissions
+    - "34 Admin - Billing"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: POST
+  url: "{{base_url}}/orders/:id/items"
   params:
-    - name: id
-      value: "{{role_id}}"
+    - name: "id"
+      value: "{{order_id}}"
       type: path
-      description: Role ID
+      description: "Order ID"
   body:
     type: json
     data: |-
       {
-        "name": "Data Dummy Update"
+        "course_id": "{{course_id}}",
+        "exam_id": "{{exam_id}}",
+        "item_name": "Paket Kursus Demo",
+        "item_type": "subscription_plan",
+        "price": 150000,
+        "quantity": 1,
+        "subscription_plan_id": "{{subscription_plan_id}}"
       }
   auth:
     type: bearer
@@ -32,7 +38,7 @@ runtime:
         });
 
         test("status sesuai kontrak atau middleware aplikasi", function() {
-          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
         });
 
 settings:
@@ -42,13 +48,13 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Add a line item to an order
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
-  - Status sukses yang didokumentasikan: `200`
+  - Route: `POST /orders/{id}/items`
+  - Kelompok/role: `34 Admin - Billing`
+  - Status sukses yang didokumentasikan: `201`
   - Bearer token: environment `{{admin_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

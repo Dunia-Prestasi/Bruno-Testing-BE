@@ -1,0 +1,7 @@
+info:
+  name: "31 Teacher & Admin - Announcements"
+  type: folder
+  seq: 25
+
+request:
+  auth: inherit

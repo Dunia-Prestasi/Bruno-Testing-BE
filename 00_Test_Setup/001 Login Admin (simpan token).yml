@@ -1,5 +1,5 @@
 info:
-  name: "Login Admin (simpan token)"
+  name: Login Admin (simpan token)
   type: http
   seq: 1
   tags:
@@ -15,9 +15,15 @@ http:
         "email": "{{admin_email}}",
         "password": "{{admin_password}}"
       }
-  auth: none
 
 runtime:
+  variables:
+    - name: admin_email
+      value: superadmin@duniaprestasi.com
+    - name: admin_password
+      value: superadmin123
+    - name: base_url
+      value: localhost:8080/api/v1
   scripts:
     - type: after-response
       code: |-
@@ -44,5 +50,4 @@ settings:
   followRedirects: true
   maxRedirects: 5
 
-docs: |-
-  Login helper untuk mengisi environment `admin_access_token`, `admin_refresh_token`, dan `admin_user_id` secara otomatis.
+docs: Login helper untuk mengisi environment `admin_access_token`, `admin_refresh_token`, dan `admin_user_id` secara otomatis.

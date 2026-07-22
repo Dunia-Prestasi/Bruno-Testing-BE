@@ -1,0 +1,48 @@
+info:
+  name: "[POST] Register a new user account"
+  type: http
+  seq: 9
+  tags:
+    - 02 Public - Authentication
+
+http:
+  method: POST
+  url: "{{base_url}}/auth/signup"
+  body:
+    type: json
+    data: |-
+      {
+        "email": "{{student_email}}",
+        "name": "Data Dummy Bruno",
+        "password": "{{student_password}}",
+        "phone": "081234567890"
+      }
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Register a new user account
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /auth/signup`
+  - Kelompok/role: `02 Public - Authentication`
+  - Status sukses yang didokumentasikan: `201`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

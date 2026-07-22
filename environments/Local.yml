@@ -23,7 +23,7 @@ variables:
   - name: signup_email
     value: baguswedanta17@gmail.com
   - name: new_user_email
-    value: teacher.bruno@example.com
+    value: teacher.bruno3@example.com
   - name: dummy_password
     value: BrunoTest123!
   - name: access_token
@@ -31,15 +31,15 @@ variables:
   - name: refresh_token
     value: ""
   - name: admin_access_token
-    value: ""
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDIxMjk3Mi1iOGUyLTRkNWUtODlkOS04YWRhOWYxZTQ5M2EiLCJlbWFpbCI6InN1cGVyYWRtaW5AZHVuaWFwcmVzdGFzaS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwicGVybWlzc2lvbnMiOlsidXNlcnM6Y3JlYXRlIiwicmVnaXN0cmF0aW9uczpyZWFkIiwicmVnaXN0cmF0aW9uczptYW5hZ2UiLCJzdHVkZW50czpyZWFkIiwic3R1ZGVudHM6cmVhZF9vd24iLCJzdHVkZW50czptYW5hZ2UiLCJzdHVkZW50czptYW5hZ2Vfb3duIiwibGVhcm5pbmc6cmVhZCIsImxlYXJuaW5nOm1hbmFnZSIsImxtczpyZWFkIiwibG1zOm1hbmFnZSIsInF1ZXN0aW9uczpyZWFkIiwicXVlc3Rpb25zOm1hbmFnZSIsImFzc2Vzc21lbnRzOnJlYWQiLCJhc3Nlc3NtZW50czptYW5hZ2UiLCJhdHRlbXB0czpyZWFkX293biIsImF0dGVtcHRzOm1hbmFnZV9vd24iLCJhdHRlbXB0czpyZWFkIiwiYXR0ZW1wdHM6Z3JhZGUiLCJtZWRpYTp1cGxvYWQiLCJiaWxsaW5nOnJlYWRfb3duIiwiYmlsbGluZzptYW5hZ2UiLCJlbnJvbGxtZW50czpyZWFkX293biIsImVucm9sbG1lbnRzOm1hbmFnZSIsInByb2dyZXNzOm1hbmFnZV9vd24iLCJwcm9ncmVzczpyZWFkIiwiYWNjZXNzX2dyYW50czpyZWFkX293biIsImFjY2Vzc19ncmFudHM6bWFuYWdlIiwiZ2FtaWZpY2F0aW9uOnJlYWRfb3duIiwiZ2FtaWZpY2F0aW9uOm1hbmFnZSIsImNlcnRpZmljYXRlczpyZWFkX293biIsImNlcnRpZmljYXRlczptYW5hZ2UiLCJyZXZpZXdzOm1hbmFnZV9vd24iLCJyZXZpZXdzOm1vZGVyYXRlIiwiYXVkaXRfbG9nczpyZWFkIiwidXNlcnM6cmVhZCIsInVzZXJzOm1hbmFnZSIsInJiYWM6bWFuYWdlIiwiYW5ub3VuY2VtZW50czpyZWFkIiwiYW5ub3VuY2VtZW50czptYW5hZ2UiLCJicmFuY2hlczpyZWFkIiwiYnJhbmNoZXM6bWFuYWdlIiwicmJhYzpyZWFkIl0sImlzcyI6ImR1bmlhLXByZXN0YXNpLWdvIiwiaWF0IjoxNzg0Njk0MTk2LCJleHAiOjE3ODQ2OTc3OTYsInR5cCI6ImFjY2VzcyIsInNpZCI6ImdBUlRMWFNWclRqTElJME5OMU0xUWcifQ.kUO5UaH88rAhQAJtUlPpR9R-rWoSe-oyvzIciJGQZzU
   - name: admin_refresh_token
     value: ""
   - name: teacher_access_token
-    value: ""
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NjJhY2QyYy00N2Y5LTRkY2QtOWM0Yi03YTYxOGI3YzNhOWIiLCJlbWFpbCI6InRlYWNoZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoidGVhY2hlciIsInJvbGVzIjpbInRlYWNoZXIiXSwicGVybWlzc2lvbnMiOlsic3R1ZGVudHM6cmVhZCIsImxlYXJuaW5nOnJlYWQiLCJsZWFybmluZzptYW5hZ2UiLCJsbXM6cmVhZCIsImxtczptYW5hZ2UiLCJxdWVzdGlvbnM6cmVhZCIsInF1ZXN0aW9uczptYW5hZ2UiLCJhc3Nlc3NtZW50czpyZWFkIiwiYXNzZXNzbWVudHM6bWFuYWdlIiwiYXR0ZW1wdHM6cmVhZCIsImF0dGVtcHRzOmdyYWRlIiwibWVkaWE6dXBsb2FkIiwiZW5yb2xsbWVudHM6bWFuYWdlIiwicHJvZ3Jlc3M6cmVhZCIsImNlcnRpZmljYXRlczptYW5hZ2UiLCJyZXZpZXdzOm1vZGVyYXRlIiwiYW5ub3VuY2VtZW50czpyZWFkIiwiYW5ub3VuY2VtZW50czptYW5hZ2UiLCJicmFuY2hlczpyZWFkIl0sImlzcyI6ImR1bmlhLXByZXN0YXNpLWdvIiwiaWF0IjoxNzg0Njk3MTcyLCJleHAiOjE3ODQ3MDA3NzIsInR5cCI6ImFjY2VzcyIsInNpZCI6Ii1xbFdJNlA1bS1RUVktUklyYlZMTEEifQ.qy1EHyUIp69ubSdFxFed8fzijRrJX0eE-wgQtMdDHl0
   - name: teacher_refresh_token
     value: ""
   - name: student_access_token
-    value: ""
+    value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4ZDIxMjk3Mi1iOGUyLTRkNWUtODlkOS04YWRhOWYxZTQ5M2EiLCJlbWFpbCI6InN1cGVyYWRtaW5AZHVuaWFwcmVzdGFzaS5jb20iLCJyb2xlIjoic3VwZXJhZG1pbiIsInJvbGVzIjpbInN1cGVyYWRtaW4iXSwicGVybWlzc2lvbnMiOlsidXNlcnM6Y3JlYXRlIiwicmVnaXN0cmF0aW9uczpyZWFkIiwicmVnaXN0cmF0aW9uczptYW5hZ2UiLCJzdHVkZW50czpyZWFkIiwic3R1ZGVudHM6cmVhZF9vd24iLCJzdHVkZW50czptYW5hZ2UiLCJzdHVkZW50czptYW5hZ2Vfb3duIiwibGVhcm5pbmc6cmVhZCIsImxlYXJuaW5nOm1hbmFnZSIsImxtczpyZWFkIiwibG1zOm1hbmFnZSIsInF1ZXN0aW9uczpyZWFkIiwicXVlc3Rpb25zOm1hbmFnZSIsImFzc2Vzc21lbnRzOnJlYWQiLCJhc3Nlc3NtZW50czptYW5hZ2UiLCJhdHRlbXB0czpyZWFkX293biIsImF0dGVtcHRzOm1hbmFnZV9vd24iLCJhdHRlbXB0czpyZWFkIiwiYXR0ZW1wdHM6Z3JhZGUiLCJtZWRpYTp1cGxvYWQiLCJiaWxsaW5nOnJlYWRfb3duIiwiYmlsbGluZzptYW5hZ2UiLCJlbnJvbGxtZW50czpyZWFkX293biIsImVucm9sbG1lbnRzOm1hbmFnZSIsInByb2dyZXNzOm1hbmFnZV9vd24iLCJwcm9ncmVzczpyZWFkIiwiYWNjZXNzX2dyYW50czpyZWFkX293biIsImFjY2Vzc19ncmFudHM6bWFuYWdlIiwiZ2FtaWZpY2F0aW9uOnJlYWRfb3duIiwiZ2FtaWZpY2F0aW9uOm1hbmFnZSIsImNlcnRpZmljYXRlczpyZWFkX293biIsImNlcnRpZmljYXRlczptYW5hZ2UiLCJyZXZpZXdzOm1hbmFnZV9vd24iLCJyZXZpZXdzOm1vZGVyYXRlIiwiYXVkaXRfbG9nczpyZWFkIiwidXNlcnM6cmVhZCIsInVzZXJzOm1hbmFnZSIsInJiYWM6bWFuYWdlIiwiYW5ub3VuY2VtZW50czpyZWFkIiwiYW5ub3VuY2VtZW50czptYW5hZ2UiLCJicmFuY2hlczpyZWFkIiwiYnJhbmNoZXM6bWFuYWdlIiwicmJhYzpyZWFkIl0sImlzcyI6ImR1bmlhLXByZXN0YXNpLWdvIiwiaWF0IjoxNzg0NTQ1NzE5LCJleHAiOjE3ODQ1NDkzMTksInR5cCI6ImFjY2VzcyIsInNpZCI6IlQ3RmhsUzRObUt0NEZCcDFEZjJ5YXcifQ.r-gWzvyFzns4V3uluywhpKgiNRtXzZQL_5Mr6Jy07Dw
   - name: student_refresh_token
     value: ""
   - name: password_reset_token
@@ -47,7 +47,7 @@ variables:
   - name: email_verification_token
     value: replace-with-token-from-email
   - name: course_slug
-    value: course-bruno-2026
+    value: course-bruno4-2026
   - name: question_bank_slug
     value: bank-soal-bruno-2026
   - name: exam_slug
@@ -61,7 +61,7 @@ variables:
   - name: audit_table
     value: users
   - name: user_id
-    value: 00000000-0000-4000-8000-000000000001
+    value: 18b4422b-1603-4727-8a1f-36caac6ec993
   - name: admin_user_id
     value: 00000000-0000-4000-8000-000000000002
   - name: teacher_user_id
@@ -69,7 +69,7 @@ variables:
   - name: student_user_id
     value: 00000000-0000-4000-8000-000000000004
   - name: student_id
-    value: 00000000-0000-4000-8000-000000000005
+    value: b55f6ce2-4479-4089-a7c3-7871ad6b8660
   - name: entity_id
     value: 00000000-0000-4000-8000-000000000006
   - name: branch_id
@@ -77,9 +77,9 @@ variables:
   - name: registration_id
     value: 00000000-0000-4000-8000-000000000008
   - name: course_id
-    value: 00000000-0000-4000-8000-000000000009
+    value: 0bd3ca46-0dfb-468f-aaa2-c390b49f1eb7
   - name: batch_id
-    value: 00000000-0000-4000-8000-000000000010
+    value: 0bd3ca46-0dfb-468f-aaa2-c390b49f1eb7
   - name: module_id
     value: 00000000-0000-4000-8000-000000000011
   - name: lesson_id

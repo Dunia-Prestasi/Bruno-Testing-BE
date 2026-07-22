@@ -1,27 +1,35 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[PUT] Update a batch"
   type: http
-  seq: 10
+  seq: 14
   tags:
-    - 31 Admin - Roles and Permissions
+    - "21 Teacher - Courses and Content"
 
 http:
   method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  url: "{{base_url}}/courses/:id/batches/:batchID"
   params:
-    - name: id
-      value: "{{role_id}}"
+    - name: "id"
+      value: "{{course_id}}"
       type: path
-      description: Role ID
+      description: "Course ID"
+    - name: "batchID"
+      value: "{{batch_id}}"
+      type: path
+      description: "Batch ID"
   body:
     type: json
     data: |-
       {
-        "name": "Data Dummy Update"
+        "end_date": "2026-12-31T00:00:00Z",
+        "is_active": true,
+        "max_students": 30,
+        "name": "Data Dummy Bruno",
+        "start_date": "2026-07-17T00:00:00Z"
       }
   auth:
     type: bearer
-    token: "{{admin_access_token}}"
+    token: "{{teacher_access_token}}"
 
 runtime:
   scripts:
@@ -42,14 +50,14 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Update a batch
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `PUT /courses/{id}/batches/{batchID}`
+  - Kelompok/role: `21 Teacher - Courses and Content`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{admin_access_token}}`
+  - Bearer token: environment `{{teacher_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 

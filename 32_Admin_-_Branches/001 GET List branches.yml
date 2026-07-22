@@ -1,24 +1,24 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[GET] List branches"
   type: http
-  seq: 10
+  seq: 1
   tags:
-    - 31 Admin - Roles and Permissions
+    - "32 Admin - Branches"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: GET
+  url: "{{base_url}}/branches"
   params:
-    - name: id
-      value: "{{role_id}}"
-      type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+    - name: "limit"
+      value: "20"
+      type: query
+      description: "Page limit (default 20, max 100)"
+      disabled: true
+    - name: "offset"
+      value: "0"
+      type: query
+      description: "Page offset (default 0)"
+      disabled: true
   auth:
     type: bearer
     token: "{{admin_access_token}}"
@@ -42,12 +42,12 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # List branches
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Lists organization branches.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `GET /branches`
+  - Kelompok/role: `32 Admin - Branches`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
 

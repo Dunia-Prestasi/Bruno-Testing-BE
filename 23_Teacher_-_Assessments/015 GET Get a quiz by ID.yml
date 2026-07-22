@@ -1,24 +1,21 @@
 info:
-  name: "[PUT] Upload the authenticated student's own avatar"
+  name: "[GET] Get a quiz by ID"
   type: http
-  seq: 4
+  seq: 15
   tags:
-    - 10 Student - Profile
+    - "23 Teacher - Assessments"
 
 http:
-  method: PUT
-  url: "{{base_url}}/students/me/avatar"
-  body:
-    type: multipart-form
-    data:
-      - name: file
-        type: file
-        value:
-          - C:\Users\wedanta\Downloads\logo(1).png
-        contentType: image/png
+  method: GET
+  url: "{{base_url}}/quizzes/:id"
+  params:
+    - name: "id"
+      value: "{{quiz_id}}"
+      type: path
+      description: "Quiz ID"
   auth:
     type: bearer
-    token: "{{student_access_token}}"
+    token: "{{teacher_access_token}}"
 
 runtime:
   scripts:
@@ -39,13 +36,15 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Upload the authenticated student's own avatar
+  # Get a quiz by ID
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Retrieves a single quiz by ID. Answer keys are hidden from callers without the learning-manage permission.
 
-  - Route: `PUT /students/me/avatar`
-  - Kelompok/role: `10 Student - Profile`
+  - Route: `GET /quizzes/{id}`
+  - Kelompok/role: `23 Teacher - Assessments`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{student_access_token}}`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

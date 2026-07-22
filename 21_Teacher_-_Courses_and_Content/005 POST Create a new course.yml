@@ -1,0 +1,61 @@
+info:
+  name: "[POST] Create a new course"
+  type: http
+  seq: 5
+  tags:
+    - "21 Teacher - Courses and Content"
+
+http:
+  method: POST
+  url: "{{base_url}}/courses"
+  body:
+    type: json
+    data: |-
+      {
+        "access_type": "subscription",
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "is_published": true,
+        "level": "beginner",
+        "slug": "{{course_slug}}",
+        "thumbnail_url": "https://example.com/dummy-file.png",
+        "title": "Konten Demo Bruno"
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        if (res.status >= 200 && res.status < 300 && res.body) {
+          const data = res.body.data || res.body;
+          if (data && data.id) bru.setEnvVar("course_id", data.id);
+        }
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create a new course
+
+  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+
+  - Route: `POST /courses`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

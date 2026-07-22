@@ -1,24 +1,18 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[POST] Confirm a manual (transfer/cash) payment"
   type: http
-  seq: 10
+  seq: 16
   tags:
-    - 31 Admin - Roles and Permissions
+    - "34 Admin - Billing"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: POST
+  url: "{{base_url}}/payments/:id/confirm"
   params:
-    - name: id
-      value: "{{role_id}}"
+    - name: "id"
+      value: "{{payment_id}}"
       type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+      description: "Payment ID"
   auth:
     type: bearer
     token: "{{admin_access_token}}"
@@ -42,12 +36,12 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Confirm a manual (transfer/cash) payment
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Marks the payment and its order as paid, and grants the student access to the purchased items.
 
-  - Route: `PUT /rbac/roles/{id}`
-  - Kelompok/role: `31 Admin - Roles and Permissions`
+  - Route: `POST /payments/{id}/confirm`
+  - Kelompok/role: `34 Admin - Billing`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
 

@@ -1,24 +1,26 @@
 info:
-  name: "[PUT] Upload the authenticated student's own avatar"
+  name: "[POST] Confirm email verification using a token"
   type: http
-  seq: 4
+  seq: 1
   tags:
-    - 10 Student - Profile
+    - "02 Public - Authentication"
 
 http:
-  method: PUT
-  url: "{{base_url}}/students/me/avatar"
+  method: POST
+  url: "{{base_url}}/auth/email-verification/confirm"
+  params:
+    - name: "token"
+      value: "{{email_verification_token}}"
+      type: query
+      description: "Verification token (used when confirming via GET)"
+      disabled: true
   body:
-    type: multipart-form
-    data:
-      - name: file
-        type: file
-        value:
-          - C:\Users\wedanta\Downloads\logo(1).png
-        contentType: image/png
-  auth:
-    type: bearer
-    token: "{{student_access_token}}"
+    type: json
+    data: |-
+      {
+        "token": "{{email_verification_token}}"
+      }
+  auth: none
 
 runtime:
   scripts:
@@ -39,13 +41,14 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Upload the authenticated student's own avatar
+  # Confirm email verification using a token
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /students/me/avatar`
-  - Kelompok/role: `10 Student - Profile`
+  - Route: `POST /auth/email-verification/confirm`
+  - Kelompok/role: `02 Public - Authentication`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{student_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

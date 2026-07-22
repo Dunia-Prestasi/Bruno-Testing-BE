@@ -1,24 +1,22 @@
 info:
-  name: "[PUT] Update a role"
+  name: "[DELETE] Revoke a permission from a role"
   type: http
-  seq: 10
+  seq: 13
   tags:
-    - 31 Admin - Roles and Permissions
+    - "31 Admin - Roles and Permissions"
 
 http:
-  method: PUT
-  url: "{{base_url}}/rbac/roles/:id"
+  method: DELETE
+  url: "{{base_url}}/rbac/roles/:id/permissions/:permissionID"
   params:
-    - name: id
+    - name: "id"
       value: "{{role_id}}"
       type: path
-      description: Role ID
-  body:
-    type: json
-    data: |-
-      {
-        "name": "Data Dummy Update"
-      }
+      description: "Role ID"
+    - name: "permissionID"
+      value: "{{permission_id}}"
+      type: path
+      description: "Permission ID"
   auth:
     type: bearer
     token: "{{admin_access_token}}"
@@ -32,7 +30,7 @@ runtime:
         });
 
         test("status sesuai kontrak atau middleware aplikasi", function() {
-          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+          expect([204, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
         });
 
 settings:
@@ -42,13 +40,13 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Update a role
+  # Revoke a permission from a role
 
   Request siap pakai untuk pengujian manual API Dunia Prestasi.
 
-  - Route: `PUT /rbac/roles/{id}`
+  - Route: `DELETE /rbac/roles/{id}/permissions/{permissionID}`
   - Kelompok/role: `31 Admin - Roles and Permissions`
-  - Status sukses yang didokumentasikan: `200`
+  - Status sukses yang didokumentasikan: `204`
   - Bearer token: environment `{{admin_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
