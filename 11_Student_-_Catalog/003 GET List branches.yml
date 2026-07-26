@@ -17,7 +17,7 @@ http:
     - name: "offset"
       value: "0"
       type: query
-      description: "Page offset (default 0)"
+      description: "Zero-based page number (default 0); multiplied internally by limit"
       disabled: true
   auth:
     type: bearer
