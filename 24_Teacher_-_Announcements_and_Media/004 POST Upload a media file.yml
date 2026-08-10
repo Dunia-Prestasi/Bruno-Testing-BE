@@ -3,7 +3,7 @@ info:
   type: http
   seq: 4
   tags:
-    - "24 Teacher - Announcements and Media"
+    - 24 Teacher - Announcements and Media
 
 http:
   method: POST
@@ -11,11 +11,12 @@ http:
   body:
     type: multipart-form
     data:
-      - name: "file"
+      - name: file
         type: file
         value:
-          - "../assets/dummy-upload.png"
-        description: "Media file to upload"
+          - C:\Users\wedanta\Downloads\Black and White Circle Business Logo(3).png
+        contentType: image/png
+        description: Media file to upload
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

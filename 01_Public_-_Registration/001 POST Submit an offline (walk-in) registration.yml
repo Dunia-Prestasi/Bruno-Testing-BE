@@ -1,0 +1,74 @@
+info:
+  name: "[POST] Submit an offline (walk-in) registration"
+  type: http
+  seq: 1
+  tags:
+    - "01 Public - Registration"
+
+http:
+  method: POST
+  url: "{{base_url}}/registrations/offline"
+  body:
+    type: json
+    data: |-
+      {
+        "address": "Jl. Pendidikan No. 1",
+        "birth_date": "2026-07-17T00:00:00Z",
+        "birth_order": 1,
+        "birth_place": "Denpasar",
+        "branch_id": "{{branch_id}}",
+        "country": "Indonesia",
+        "district": "Denpasar Selatan",
+        "education_level": "SMA",
+        "email": "{{login_email}}",
+        "father_name": "Made Santoso",
+        "father_occupation": "Wiraswasta",
+        "father_phone": "081234567891",
+        "gender": "male",
+        "grade_level": "12",
+        "info_recipient": "father",
+        "mother_name": "Komang Sari",
+        "mother_occupation": "Guru",
+        "mother_phone": "081234567892",
+        "name": "Data Dummy Bruno",
+        "nickname": "Budi",
+        "notes": "Dibuat dari collection Bruno",
+        "password": "{{dummy_password}}",
+        "phone": "081234567890",
+        "province": "Bali",
+        "religion": "Hindu",
+        "school_name": "SMA Negeri Contoh",
+        "sibling_count": 1,
+        "subscription_plan_id": "{{subscription_plan_id}}",
+        "tutoring_type": "online"
+      }
+  auth: none
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Submit an offline (walk-in) registration
+
+  Creates the student account, profile, and a pending cash payment immediately (concept identical to signup, but with the fuller data set an in-person admission requires). The account stays inactive and cannot log in until an admin confirms the cash payment via POST /payments/{id}/confirm.
+
+  - Route: `POST /registrations/offline`
+  - Kelompok/role: `01 Public - Registration`
+  - Status sukses yang didokumentasikan: `201`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

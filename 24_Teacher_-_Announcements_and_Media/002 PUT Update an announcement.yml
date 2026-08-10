@@ -3,23 +3,23 @@ info:
   type: http
   seq: 2
   tags:
-    - "24 Teacher - Announcements and Media"
+    - 24 Teacher - Announcements and Media
 
 http:
   method: PUT
   url: "{{base_url}}/announcements/:id"
   params:
-    - name: "id"
+    - name: id
       value: "{{announcement_id}}"
       type: path
-      description: "Announcement ID"
+      description: Announcement ID
   body:
     type: json
     data: |-
       {
         "batch_id": "{{batch_id}}",
-        "content": "Pengumuman dummy dari collection Bruno.",
-        "title": "Konten Demo Bruno"
+        "content": "Pengumuman dummy dari collection Bruno Update.",
+        "title": "Konten Demo Bruno Update"
       }
   auth:
     type: bearer

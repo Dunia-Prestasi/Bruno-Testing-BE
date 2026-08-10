@@ -3,27 +3,31 @@ info:
   type: http
   seq: 12
   tags:
-    - "23 Teacher - Assessments"
+    - 23 Teacher - Assessments
 
 http:
   method: POST
   url: "{{base_url}}/exams/:id/sections/:sectionID/questions"
   params:
-    - name: "id"
+    - name: id
       value: "{{exam_id}}"
       type: path
-      description: "Exam ID"
-    - name: "sectionID"
+      description: Exam ID
+    - name: sectionID
       value: "{{exam_section_id}}"
       type: path
-      description: "Exam Section ID"
+      description: Exam Section ID
   body:
     type: json
     data: |-
       {
-        "order_number": 1,
-        "question_id": "{{question_id}}",
-        "score": 10
+        "questions": [
+          {
+            "question_id": "{{question_id}}",
+            "order_number": 1,
+            "score": 10
+          }
+        ]
       }
   auth:
     type: bearer

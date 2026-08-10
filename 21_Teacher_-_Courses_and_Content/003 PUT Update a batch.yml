@@ -1,18 +1,18 @@
 info:
   name: "[PUT] Update a batch"
   type: http
-  seq: 3
+  seq: 9
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: PUT
   url: "{{base_url}}/batches/:batchID"
   params:
-    - name: "batchID"
+    - name: batchID
       value: "{{batch_id}}"
       type: path
-      description: "Batch ID"
+      description: Batch ID
   body:
     type: json
     data: |-

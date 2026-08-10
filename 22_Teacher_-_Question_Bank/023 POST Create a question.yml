@@ -3,7 +3,7 @@ info:
   type: http
   seq: 23
   tags:
-    - "22 Teacher - Question Bank"
+    - 22 Teacher - Question Bank
 
 http:
   method: POST
@@ -12,21 +12,148 @@ http:
     type: json
     data: |-
       {
-        "answer_key_text": "4",
-        "category_id": "{{question_category_id}}",
-        "correct_numeric_value": 4,
-        "difficulty_level": "easy",
-        "explanation": "Dua ditambah dua sama dengan empat.",
-        "grade_level_id": "{{question_grade_level_id}}",
-        "metadata": {
-          "source": "bruno",
-          "value": "dummy"
-        },
-        "question_bank_id": "{{question_bank_id}}",
-        "question_group_id": "{{question_group_id}}",
-        "question_text": "Berapakah hasil 2 + 2?",
-        "question_type": "multiple_choice",
-        "score": 10
+        "questions": [
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah hasil 2 + 2?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "easy",
+            "explanation": "Dua ditambah dua sama dengan empat.",
+            "score": 5,
+            "answer_key_text": "4",
+            "correct_numeric_value": 4,
+            "metadata": { "source": "bruno", "item_index": 1 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah nilai x dari persamaan 2x + 6 = 14?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "easy",
+            "explanation": "2x = 14 - 6 = 8, sehingga x = 4",
+            "score": 5,
+            "answer_key_text": "4",
+            "correct_numeric_value": 4,
+            "metadata": { "source": "bruno", "item_index": 2 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Jika turunan f(x) = 3x^2 - 4x + 1, berapakah f'(2)?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "medium",
+            "explanation": "f'(x) = 6x - 4. Maka f'(2) = 6(2) - 4 = 8",
+            "score": 10,
+            "answer_key_text": "8",
+            "correct_numeric_value": 8,
+            "metadata": { "source": "bruno", "item_index": 3 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah akar kuadrat dari 144?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "easy",
+            "explanation": "12 x 12 = 144.",
+            "score": 5,
+            "answer_key_text": "12",
+            "correct_numeric_value": 12,
+            "metadata": { "source": "bruno", "item_index": 4 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah hasil integral dari ∫ 2x dx dari 0 sampai 3?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "hard",
+            "explanation": "Integral dari 2x adalah x^2. Maka [x^2] dari 0 sampai 3 adalah 3^2 - 0^2 = 9.",
+            "score": 15,
+            "answer_key_text": "9",
+            "correct_numeric_value": 9,
+            "metadata": { "source": "bruno", "item_index": 5 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah keliling lingkaran dengan jari-jari 7 cm? (Gunakan π = 22/7)",
+            "question_type": "multiple_choice",
+            "difficulty_level": "medium",
+            "explanation": "K = 2 * π * r = 2 * (22/7) * 7 = 44.",
+            "score": 10,
+            "answer_key_text": "44",
+            "correct_numeric_value": 44,
+            "metadata": { "source": "bruno", "item_index": 6 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Sebuah dadu dilempar sekali. Berapa peluang muncul mata dadu genap?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "easy",
+            "explanation": "Mata genap (2,4,6) = 3 dari 6 kemungkinan. Peluang = 3/6 = 0.5.",
+            "score": 5,
+            "answer_key_text": "0.5",
+            "correct_numeric_value": 0.5,
+            "metadata": { "source": "bruno", "item_index": 7 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah logaritma basis 10 dari 1000?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "medium",
+            "explanation": "10^3 = 1000, maka log10(1000) = 3.",
+            "score": 10,
+            "answer_key_text": "3",
+            "correct_numeric_value": 3,
+            "metadata": { "source": "bruno", "item_index": 8 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Jika matriks A = [[1, 2], [3, 4]], berapakah determinan matriks A?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "hard",
+            "explanation": "Det(A) = (1*4) - (2*3) = 4 - 6 = -2.",
+            "score": 15,
+            "answer_key_text": "-2",
+            "correct_numeric_value": -2,
+            "metadata": { "source": "bruno", "item_index": 9 }
+          },
+          {
+            "question_bank_id": "{{question_bank_id}}",
+            "category_id": "{{question_category_id}}",
+            "grade_level_id": "{{question_grade_level_id}}",
+            "question_group_id": "{{question_group_id}}",
+            "question_text": "Berapakah jumlah dari suku pertama hingga ke-5 dari deret aritmatika 2, 4, 6, 8, ...?",
+            "question_type": "multiple_choice",
+            "difficulty_level": "medium",
+            "explanation": "S5 = 5/2 * (2*2 + (5-1)*2) = 2.5 * (4 + 8) = 2.5 * 12 = 30.",
+            "score": 10,
+            "answer_key_text": "30",
+            "correct_numeric_value": 30,
+            "metadata": { "source": "bruno", "item_index": 10 }
+          }
+        ]
       }
   auth:
     type: bearer

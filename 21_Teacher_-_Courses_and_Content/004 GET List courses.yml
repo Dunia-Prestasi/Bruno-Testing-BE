@@ -1,28 +1,28 @@
 info:
   name: "[GET] List courses"
   type: http
-  seq: 4
+  seq: 1
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: GET
   url: "{{base_url}}/courses"
   params:
-    - name: "published_only"
+    - name: published_only
       value: "true"
       type: query
-      description: "Filter to published courses only (default true)"
+      description: Filter to published courses only (default true)
       disabled: true
-    - name: "limit"
+    - name: limit
       value: "20"
       type: query
-      description: "Page limit (default 20, max 100)"
+      description: Page limit (default 20, max 100)
       disabled: true
-    - name: "offset"
+    - name: offset
       value: "0"
       type: query
-      description: "Zero-based page number (default 0); multiplied internally by limit"
+      description: Zero-based page number (default 0); multiplied internally by limit
       disabled: true
   auth:
     type: bearer

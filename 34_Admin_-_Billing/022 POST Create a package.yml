@@ -1,0 +1,53 @@
+info:
+  name: "[POST] Create a package"
+  type: http
+  seq: 22
+  tags:
+    - "34 Admin - Billing"
+
+http:
+  method: POST
+  url: "{{base_url}}/packages"
+  body:
+    type: json
+    data: |-
+      {
+        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "grade_level_id": "{{question_grade_level_id}}",
+        "is_active": true,
+        "name": "Data Dummy Bruno",
+        "price": 150000
+      }
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Create a package
+
+  Creates a new sellable package (bundle of subscription plans).
+
+  - Route: `POST /packages`
+  - Kelompok/role: `34 Admin - Billing`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

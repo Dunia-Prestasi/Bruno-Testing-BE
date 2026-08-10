@@ -24,9 +24,10 @@ runtime:
         // is invalidated server-side the moment this succeeds, so it must be
         // overwritten here or the next refresh attempt will send a stale token
         // and get "invalid refresh token".
-        if (res.status === 200 && res.body && res.body.data) {
-          bru.setEnvVar("access_token", res.body.data.access_token || "");
-          bru.setEnvVar("refresh_token", res.body.data.refresh_token || "");
+        if (res.status === 200 && res.body) {
+          const data = res.body.data || res.body;
+          bru.setEnvVar("access_token", data.access_token || "");
+          bru.setEnvVar("refresh_token", data.refresh_token || "");
         }
     - type: tests
       code: |-

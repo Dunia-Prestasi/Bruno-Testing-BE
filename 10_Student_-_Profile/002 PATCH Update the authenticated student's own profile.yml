@@ -12,7 +12,7 @@ http:
     type: json
     data: |-
       {
-        "name": "Budi Santoso Updated",
+        "name": "Bagus Wedanta",
         "email": "baguswedanta17@gmail.com",
         "phone": "08123456781112",
         "avatar_url": "https://example.com/avatar.png",

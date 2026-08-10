@@ -1,23 +1,28 @@
 info:
-  name: "[GET] List registrations"
+  name: "[GET] List packages"
   type: http
-  seq: 4
+  seq: 21
   tags:
-    - 30 Admin - Users and Registrations
+    - "34 Admin - Billing"
 
 http:
   method: GET
-  url: "{{base_url}}/protected/registrations"
+  url: "{{base_url}}/packages"
   params:
-    - name: limit
+    - name: "active_only"
+      value: "true"
+      type: query
+      description: "Filter to active packages only (default true)"
+      disabled: true
+    - name: "limit"
       value: "20"
       type: query
-      description: Page limit (default 10)
+      description: "Page limit (default 20, max 100)"
       disabled: true
-    - name: offset
+    - name: "offset"
       value: "0"
       type: query
-      description: Zero-based page number (default 0); multiplied internally by limit
+      description: "Zero-based page number (default 0); multiplied internally by limit"
       disabled: true
   auth:
     type: bearer
@@ -42,12 +47,12 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # List registrations
+  # List packages
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Lists sellable packages (bundles of subscription plans).
 
-  - Route: `GET /protected/registrations`
-  - Kelompok/role: `30 Admin - Users and Registrations`
+  - Route: `GET /packages`
+  - Kelompok/role: `34 Admin - Billing`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
 

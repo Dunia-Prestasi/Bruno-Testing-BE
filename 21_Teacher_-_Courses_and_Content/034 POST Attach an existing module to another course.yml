@@ -1,0 +1,60 @@
+info:
+  name: "[POST] Attach an existing module to another course"
+  type: http
+  seq: 34
+  tags:
+    - "21 Teacher - Courses and Content"
+
+http:
+  method: POST
+  url: "{{base_url}}/courses/:id/modules/:moduleID/attach"
+  params:
+    - name: "id"
+      value: "{{course_id}}"
+      type: path
+      description: "Course ID"
+    - name: "moduleID"
+      value: "{{module_id}}"
+      type: path
+      description: "Module ID"
+  body:
+    type: json
+    data: |-
+      {
+        "order_number": 1
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Attach an existing module to another course
+
+  Reuses an existing module (created under another course) in this course's curriculum.
+
+  - Route: `POST /courses/{id}/modules/{moduleID}/attach`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
+
+  Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

@@ -1,9 +1,9 @@
 info:
   name: "[POST] Create a new course"
   type: http
-  seq: 5
+  seq: 4
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: POST
@@ -12,13 +12,13 @@ http:
     type: json
     data: |-
       {
-        "access_type": "subscription",
-        "description": "Data dummy untuk pengujian API melalui Bruno",
-        "is_published": true,
-        "level": "beginner",
-        "slug": "{{course_slug}}",
-        "thumbnail_url": "https://example.com/dummy-file.png",
-        "title": "Konten Demo Bruno"
+        "title": "Matematika SBMPTN 2026",
+        "slug": "matematika-sbmptn-2026",
+        "description": "Materi lengkap matematika persiapan SBMPTN",
+        "thumbnail_url": "https://cdn.example.com/thumb.jpg",
+        "level": "Lanjutan",
+        "access_type": "paid",
+        "is_published": true
       }
   auth:
     type: bearer

@@ -12,10 +12,10 @@ http:
     type: json
     data: |-
       {
+        "name": "Cabang Bandung",
         "address": "Jl. Pendidikan No. 1",
-        "is_active": true,
-        "name": "Data Dummy Bruno",
-        "phone": "081234567890"
+        "phone": "081234567890",
+        "is_active": true
       }
   auth:
     type: bearer

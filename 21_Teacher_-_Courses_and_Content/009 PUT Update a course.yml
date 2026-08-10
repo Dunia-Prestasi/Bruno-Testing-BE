@@ -1,18 +1,18 @@
 info:
   name: "[PUT] Update a course"
   type: http
-  seq: 9
+  seq: 5
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: PUT
   url: "{{base_url}}/courses/:id"
   params:
-    - name: "id"
+    - name: id
       value: "{{course_id}}"
       type: path
-      description: "Course ID"
+      description: Course ID
   body:
     type: json
     data: |-

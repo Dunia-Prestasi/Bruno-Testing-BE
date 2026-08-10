@@ -1,21 +1,21 @@
 info:
-  name: "[GET] Get a registration by ID"
+  name: "[GET] List courses covered by a batch"
   type: http
-  seq: 6
+  seq: 16
   tags:
-    - 30 Admin - Users and Registrations
+    - "11 Student - Catalog"
 
 http:
   method: GET
-  url: "{{base_url}}/protected/registrations/:id"
+  url: "{{base_url}}/batches/:batchID/courses"
   params:
-    - name: id
-      value: "{{registration_id}}"
+    - name: "batchID"
+      value: "{{batch_id}}"
       type: path
-      description: Registration ID
+      description: "Batch ID"
   auth:
     type: bearer
-    token: "{{admin_access_token}}"
+    token: "{{student_access_token}}"
 
 runtime:
   scripts:
@@ -26,7 +26,7 @@ runtime:
         });
 
         test("status sesuai kontrak atau middleware aplikasi", function() {
-          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+          expect([200, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
         });
 
 settings:
@@ -36,14 +36,14 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Get a registration by ID
+  # List courses covered by a batch
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Lists the courses a batch (cohort) covers.
 
-  - Route: `GET /protected/registrations/{id}`
-  - Kelompok/role: `30 Admin - Users and Registrations`
+  - Route: `GET /batches/{batchID}/courses`
+  - Kelompok/role: `11 Student - Catalog`
   - Status sukses yang didokumentasikan: `200`
-  - Bearer token: environment `{{admin_access_token}}`
+  - Bearer token: environment `{{student_access_token}}`
 
   Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 

@@ -3,23 +3,29 @@ info:
   type: http
   seq: 2
   tags:
-    - "22 Teacher - Question Bank"
+    - 22 Teacher - Question Bank
 
 http:
   method: POST
   url: "{{base_url}}/question-banks"
   body:
     type: json
-    data: |-
+    data: |
       {
-        "description": "Data dummy untuk pengujian API melalui Bruno",
-        "is_active": true,
-        "metadata": {
-          "source": "bruno",
-          "value": "dummy"
-        },
-        "name": "Data Dummy Bruno",
-        "slug": "{{question_bank_slug}}"
+        "banks": [
+          {
+            "name": "Bank Soal UTBK TPS 2026",
+            "slug": "bank-soal-utbk-tps-2026",
+            "description": "Kumpulan soal TPS persiapan UTBK 2026",
+            "is_active": true
+          },
+          {
+            "name": "Bank Soal UTBK TKA Saintek 2026",
+            "slug": "bank-soal-utbk-tka-saintek-2026",
+            "description": "Kumpulan soal TKA Saintek persiapan UTBK 2026",
+            "is_active": true
+          }
+        ]
       }
   auth:
     type: bearer

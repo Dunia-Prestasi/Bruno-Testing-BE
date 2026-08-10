@@ -3,24 +3,24 @@ info:
   type: http
   seq: 28
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: POST
   url: "{{base_url}}/modules/:id/lessons"
   params:
-    - name: "id"
+    - name: id
       value: "{{module_id}}"
       type: path
-      description: "Module ID"
+      description: Module ID
   body:
     type: json
     data: |-
       {
-        "is_required": true,
-        "lesson_id": "{{lesson_id}}",
-        "order_number": 1
-      }
+        "lessons": [
+          { "lesson_id": "{{lesson_id}}", "order_number": 1, "is_required": true }
+        ]
+      }  
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

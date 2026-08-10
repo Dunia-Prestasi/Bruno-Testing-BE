@@ -1,0 +1,7 @@
+info:
+  name: "05 Public - Catalog"
+  type: folder
+  seq: 27
+
+request:
+  auth: inherit

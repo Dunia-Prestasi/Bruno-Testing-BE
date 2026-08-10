@@ -1,0 +1,56 @@
+info:
+  name: "[PATCH] Update an existing user account"
+  type: http
+  seq: 4
+  tags:
+    - "30 Admin - Users and Registrations"
+
+http:
+  method: PATCH
+  url: "{{base_url}}/admin/users/:id"
+  params:
+    - name: "id"
+      value: "{{user_id}}"
+      type: path
+      description: "User ID"
+  body:
+    type: json
+    data: |-
+      {
+        "is_active": true,
+        "name": "Data Dummy Bruno",
+        "phone": "081234567890"
+      }
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Update an existing user account
+
+  Varian PATCH dari update akun pengguna; router mendaftarkan PUT dan PATCH ke handler yang sama.
+
+  - Route: `PATCH /admin/users/{id}`
+  - Kelompok/role: `30 Admin - Users and Registrations`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

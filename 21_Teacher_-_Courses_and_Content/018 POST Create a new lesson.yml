@@ -3,7 +3,7 @@ info:
   type: http
   seq: 18
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: POST
@@ -12,15 +12,23 @@ http:
     type: json
     data: |-
       {
-        "content_text": "Materi contoh untuk pengujian endpoint lesson.",
-        "content_type": "text",
-        "description": "Data dummy untuk pengujian API melalui Bruno",
-        "duration_minutes": 60,
-        "external_url": "https://example.com/dummy-file.png",
-        "is_free_preview": true,
-        "is_published": true,
-        "title": "Konten Demo Bruno",
-        "video_url": "https://example.com/dummy-file.png"
+        "lessons": [
+          {
+            "title": "Pelajaran 1: Fungsi Kuadrat",
+            "content_type": "text",
+            "content_text": "Teks lengkap materi...",
+            "duration_minutes": 45,
+            "is_free_preview": false,
+            "is_published": true
+          },
+          {
+            "title": "Pelajaran 2: Video Aljabar",
+            "content_type": "video",
+            "video_url": "https://cdn.example.com/video.mp4",
+            "duration_minutes": 30,
+            "is_published": true
+          }
+        ]
       }
   auth:
     type: bearer

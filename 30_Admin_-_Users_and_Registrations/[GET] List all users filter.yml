@@ -7,18 +7,16 @@ info:
 
 http:
   method: GET
-  url: "{{base_url}}/admin/users"
+  url: "{{base_url}}/admin/users?limit=4&offset=0"
   params:
     - name: limit
-      value: "20"
+      value: "4"
       type: query
       description: Page limit (default 20, max 100)
-      disabled: true
     - name: offset
       value: "0"
       type: query
       description: Zero-based page number (default 0); multiplied internally by limit
-      disabled: true
     - name: search
       value: bruno
       type: query

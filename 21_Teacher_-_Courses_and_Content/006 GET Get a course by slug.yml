@@ -1,18 +1,18 @@
 info:
   name: "[GET] Get a course by slug"
   type: http
-  seq: 6
+  seq: 2
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: GET
   url: "{{base_url}}/courses/by-slug/:slug"
   params:
-    - name: "slug"
+    - name: slug
       value: "{{course_slug}}"
       type: path
-      description: "Course slug"
+      description: Course slug
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

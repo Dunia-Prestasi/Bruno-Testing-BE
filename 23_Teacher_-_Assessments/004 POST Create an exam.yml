@@ -3,7 +3,7 @@ info:
   type: http
   seq: 4
   tags:
-    - "23 Teacher - Assessments"
+    - 23 Teacher - Assessments
 
 http:
   method: POST
@@ -14,7 +14,7 @@ http:
       {
         "access_type": "subscription",
         "course_id": "{{course_id}}",
-        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "description": "Exam dummy untuk pengujian API melalui Bruno",
         "end_at": "2027-07-17T00:00:00Z",
         "exam_type": "tryout",
         "is_published": true,
