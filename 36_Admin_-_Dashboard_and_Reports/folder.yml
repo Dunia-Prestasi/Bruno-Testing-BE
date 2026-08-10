@@ -1,0 +1,7 @@
+info:
+  name: "36 Admin - Dashboard and Reports"
+  type: folder
+  seq: 28
+
+request:
+  auth: inherit

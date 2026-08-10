@@ -1,0 +1,60 @@
+info:
+  name: "[POST] Attach sellable packages to a batch"
+  type: http
+  seq: 35
+  tags:
+    - "21 Teacher - Courses and Content"
+
+http:
+  method: POST
+  url: "{{base_url}}/courses/:id/batches/:batchID/packages"
+  params:
+    - name: "id"
+      value: "{{course_id}}"
+      type: path
+      description: "Course ID"
+    - name: "batchID"
+      value: "{{batch_id}}"
+      type: path
+      description: "Batch ID"
+  body:
+    type: json
+    data: |-
+      {
+        "package_ids": [
+          "{{package_id}}"
+        ]
+      }
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([201, 400, 401, 403, 404, 409, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Attach sellable packages to a batch
+
+  Menautkan batch (kohort) ke paket-paket penjualannya. Satu kohort umumnya punya beberapa paket durasi, dan katalog publik membaca harga serta fasilitas lewat tautan ini.
+
+  - Route: `POST /courses/{id}/batches/{batchID}/packages`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `201`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

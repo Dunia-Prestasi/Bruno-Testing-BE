@@ -3,25 +3,25 @@ info:
   type: http
   seq: 16
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: POST
   url: "{{base_url}}/courses/:id/modules"
   params:
-    - name: "id"
+    - name: id
       value: "{{course_id}}"
       type: path
-      description: "Course ID"
+      description: Course ID
   body:
     type: json
     data: |-
       {
-        "course_id": "{{course_id}}",
-        "description": "Data dummy untuk pengujian API melalui Bruno",
-        "is_published": true,
-        "order_number": 1,
-        "title": "Konten Demo Bruno"
+        "modules": [
+          { "title": "Modul 1: Aljabar Dasar", "order_number": 1, "is_published": true },
+          { "title": "Modul 2: Fungsi Kuadrat", "order_number": 2, "is_published": true },
+          { "title": "Modul 3: Trigonometri", "order_number": 3, "is_published": false }
+        ]
       }
   auth:
     type: bearer

@@ -3,23 +3,23 @@ info:
   type: http
   seq: 8
   tags:
-    - "23 Teacher - Assessments"
+    - 23 Teacher - Assessments
 
 http:
   method: PUT
   url: "{{base_url}}/exams/:id"
   params:
-    - name: "id"
+    - name: id
       value: "{{exam_id}}"
       type: path
-      description: "Exam ID"
+      description: Exam ID
   body:
     type: json
     data: |-
       {
         "access_type": "subscription",
         "course_id": "{{course_id}}",
-        "description": "Data dummy untuk pengujian API melalui Bruno",
+        "description": "Data dummy untuk pengujian API melalui Bruno Update",
         "end_at": "2027-07-17T00:00:00Z",
         "exam_type": "tryout",
         "is_published": true,

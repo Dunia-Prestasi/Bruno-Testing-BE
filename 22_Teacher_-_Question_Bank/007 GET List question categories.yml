@@ -3,26 +3,25 @@ info:
   type: http
   seq: 7
   tags:
-    - "22 Teacher - Question Bank"
+    - 22 Teacher - Question Bank
 
 http:
   method: GET
-  url: "{{base_url}}/question-categories"
+  url: "{{base_url}}/question-categories?question_bank_id={{question_bank_id}}"
   params:
-    - name: "question_bank_id"
+    - name: question_bank_id
       value: "{{question_bank_id}}"
       type: query
-      description: "Filter by question bank ID"
-      disabled: true
-    - name: "limit"
+      description: Filter by question bank ID
+    - name: limit
       value: "20"
       type: query
-      description: "Page limit (default 20, max 100)"
+      description: Page limit (default 20, max 100)
       disabled: true
-    - name: "offset"
+    - name: offset
       value: "0"
       type: query
-      description: "Zero-based page number (default 0); multiplied internally by limit"
+      description: Zero-based page number (default 0); multiplied internally by limit
       disabled: true
   auth:
     type: bearer

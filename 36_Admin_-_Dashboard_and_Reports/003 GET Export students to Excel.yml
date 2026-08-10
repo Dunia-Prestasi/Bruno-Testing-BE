@@ -1,0 +1,70 @@
+info:
+  name: "[GET] Export students to .xlsx"
+  type: http
+  seq: 3
+  tags:
+    - "36 Admin - Dashboard and Reports"
+
+http:
+  method: GET
+  url: "{{base_url}}/admin/reports/students/export"
+  params:
+    - name: "start_date"
+      value: "2026-07-01"
+      type: query
+      description: "Terdaftar sejak, YYYY-MM-DD WIB (default: 30 hari ke belakang)"
+      disabled: true
+    - name: "end_date"
+      value: "2026-07-31"
+      type: query
+      description: "Terdaftar sampai inklusif, YYYY-MM-DD WIB (default: hari ini)"
+      disabled: true
+    - name: "course_id"
+      value: "{{course_id}}"
+      type: query
+      description: "Hanya siswa yang terdaftar pada kursus ini"
+      disabled: true
+    - name: "is_active"
+      value: "true"
+      type: query
+      description: "Filter status akun; kosongkan untuk keduanya"
+      disabled: true
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Export students to .xlsx
+
+  Mengunduh data siswa sebagai workbook Excel.
+
+  - Route: `GET /admin/reports/students/export`
+  - Kelompok/role: `36 Admin - Dashboard and Reports`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}` — butuh permission `reports:read`
+
+  Respons berupa file biner `.xlsx` (`students-YYYYMMDD-HHMMSS.xlsx`), bukan JSON — pakai Save Response
+    di Bruno untuk memeriksa isinya.
+  
+    Dibatasi 50.000 baris. Permintaan yang lebih luas ditolak dengan 400 beserta jumlah baris sebenarnya,
+    bukan dilayani lambat.
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

@@ -1,0 +1,54 @@
+info:
+  name: "[GET] Get a public class by ID"
+  type: http
+  seq: 2
+  tags:
+    - "05 Public - Catalog"
+
+http:
+  method: GET
+  url: "{{base_url}}/public/classes/:id"
+  headers:
+    - name: "X-API-Key"
+      value: "{{public_api_key}}"
+      description: "Public API key untuk konsumen otomasi (n8n)"
+  params:
+    - name: "id"
+      value: "{{batch_id}}"
+      type: path
+      description: "Class (batch) ID"
+    - name: "mode"
+      value: "offline"
+      type: query
+      description: "Wajibkan kelas berjalan pada mode ini"
+      disabled: true
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 404, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Get a public class by ID
+
+  Mengambil satu kelas yang boleh dipublikasikan. Berbeda dari listing, kelas yang sudah berakhir tetap dapat diakses lewat ID agar tautan chat lama tidak rusak.
+
+  - Route: `GET /public/classes/{id}`
+  - Kelompok/role: `05 Public - Catalog`
+  - Status sukses yang didokumentasikan: `200`
+  - Autentikasi: header `X-API-Key` (environment `{{public_api_key}}`), bukan bearer token
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

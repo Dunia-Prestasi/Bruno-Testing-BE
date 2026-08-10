@@ -3,7 +3,7 @@ info:
   type: http
   seq: 3
   tags:
-    - "25 Teacher - Enrollment and Certificates"
+    - 25 Teacher - Enrollment and Certificates
 
 http:
   method: POST
@@ -14,7 +14,7 @@ http:
       {
         "auto_renew": false,
         "cancellation_reason": "Pengujian pembatalan",
-        "cancelled_at": "contoh cancelled at",
+        "cancelled_at": "2026-08-01T10:00:00Z",
         "course_id": "{{course_id}}",
         "expired_at": "2027-07-17T00:00:00Z",
         "order_id": "{{order_id}}",

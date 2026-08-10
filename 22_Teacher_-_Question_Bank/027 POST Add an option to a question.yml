@@ -3,30 +3,46 @@ info:
   type: http
   seq: 27
   tags:
-    - "22 Teacher - Question Bank"
+    - 22 Teacher - Question Bank
 
 http:
   method: POST
   url: "{{base_url}}/questions/:id/options"
   params:
-    - name: "id"
+    - name: id
       value: "{{question_id}}"
       type: path
-      description: "Question ID"
+      description: Question ID
   body:
     type: json
-    data: |-
+    data: |
       {
-        "is_correct": true,
-        "match_key": "A",
-        "media_url": "https://example.com/dummy-file.png",
-        "metadata": {
-          "source": "bruno",
-          "value": "dummy"
-        },
-        "option_key": "A",
-        "option_text": "4",
-        "order_number": 1
+        "options": [
+          {
+            "option_key": "A",
+            "option_text": "2",
+            "is_correct": false,
+            "order_number": 1
+          },
+          {
+            "option_key": "B",
+            "option_text": "4",
+            "is_correct": true,
+            "order_number": 2
+          },
+          {
+            "option_key": "C",
+            "option_text": "6",
+            "is_correct": false,
+            "order_number": 3
+          },
+          {
+            "option_key": "D",
+            "option_text": "8",
+            "is_correct": false,
+            "order_number": 4
+          }
+        ]
       }
   auth:
     type: bearer

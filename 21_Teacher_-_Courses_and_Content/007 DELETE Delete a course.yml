@@ -1,18 +1,18 @@
 info:
   name: "[DELETE] Delete a course"
   type: http
-  seq: 7
+  seq: 6
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: DELETE
   url: "{{base_url}}/courses/:id"
   params:
-    - name: "id"
+    - name: id
       value: "{{course_id}}"
       type: path
-      description: "Course ID"
+      description: Course ID
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

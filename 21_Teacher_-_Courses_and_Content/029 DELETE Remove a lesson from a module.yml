@@ -3,20 +3,20 @@ info:
   type: http
   seq: 29
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: DELETE
   url: "{{base_url}}/modules/:id/lessons/:lessonID"
   params:
-    - name: "id"
+    - name: id
+      value: "{{module_id}}"
+      type: path
+      description: Module ID
+    - name: lessonID
       value: "{{lesson_id}}"
       type: path
-      description: "Module ID"
-    - name: "lessonID"
-      value: "{{lesson_id}}"
-      type: path
-      description: "Lesson ID"
+      description: Lesson ID
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

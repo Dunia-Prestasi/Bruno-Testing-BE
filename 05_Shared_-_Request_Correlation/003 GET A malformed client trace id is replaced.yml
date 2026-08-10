@@ -1,0 +1,63 @@
+info:
+  name: "[GET] A malformed client trace id is replaced"
+  type: http
+  seq: 3
+  tags:
+    - "05 Shared - Request Correlation"
+
+http:
+  method: GET
+  url: "{{base_origin}}/health"
+  headers:
+    - name: X-Request-Id
+      value: "not valid!"
+  auth: none
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        // Guard first: if the header never left the client, the assertions
+        // below would pass or fail for the wrong reason.
+        test("header X-Request-Id benar-benar terkirim", function() {
+          const sent = req.getHeader("X-Request-Id") || req.getHeader("x-request-id");
+          expect(
+            sent,
+            "request tidak mengirim X-Request-Id — periksa skema http.headers pada file ini"
+          ).to.equal("not valid!");
+        });
+
+        // Menolak nilai cacat tidak boleh menggagalkan request itu sendiri.
+        test("request tetap dilayani secara normal", function() {
+          expect(res.status).to.be.within(200, 299);
+        });
+
+        test("id cacat tidak dipakai ulang", function() {
+          expect(res.getHeader("x-request-id")).to.not.equal("not valid!");
+        });
+
+        test("server menggantinya dengan id yang digenerate", function() {
+          expect(res.getHeader("x-request-id")).to.match(/^[0-9a-f]{32}$/);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # A malformed client trace id is replaced
+
+  - Route: `GET /health`
+  - Kelompok/role: `05 Shared - Request Correlation`
+  - Status sukses yang didokumentasikan: `200`
+
+  Nilai `X-Request-Id` dari client sepenuhnya dikendalikan pemanggil dan masuk ke
+  setiap baris log milik request tersebut. Karena itu nilai yang mengandung spasi,
+  tanda kutip, atau baris baru ditolak — kalau tidak, pemanggil bisa memalsukan
+  field log atau memecah satu baris log menjadi dua.
+
+  `not valid!` mengandung spasi dan tanda seru, sehingga ditolak. Yang penting,
+  penolakan itu **mengganti** id tersebut, bukan menggagalkan request: statusnya
+  tetap `200` dan respons membawa id hasil generate.

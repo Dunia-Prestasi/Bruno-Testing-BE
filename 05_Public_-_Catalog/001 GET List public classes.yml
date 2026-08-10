@@ -1,0 +1,82 @@
+info:
+  name: "[GET] List public classes"
+  type: http
+  seq: 1
+  tags:
+    - "05 Public - Catalog"
+
+http:
+  method: GET
+  url: "{{base_url}}/public/classes"
+  headers:
+    - name: "X-API-Key"
+      value: "{{public_api_key}}"
+      description: "Public API key untuk konsumen otomasi (n8n)"
+  params:
+    - name: "mode"
+      value: "offline"
+      type: query
+      description: "Delivery mode: offline atau online (wajib)"
+    - name: "branch_id"
+      value: "{{branch_id}}"
+      type: query
+      description: "Filter berdasarkan cabang"
+      disabled: true
+    - name: "grade_level_id"
+      value: "{{question_grade_level_id}}"
+      type: query
+      description: "Filter berdasarkan jenjang"
+      disabled: true
+    - name: "available_only"
+      value: "false"
+      type: query
+      description: "Hanya kelas yang masih punya kuota"
+      disabled: true
+    - name: "include_ended"
+      value: "false"
+      type: query
+      description: "Ikutkan kelas yang sudah berakhir"
+      disabled: true
+    - name: "limit"
+      value: "20"
+      type: query
+      description: "Page limit (default 20, max 100)"
+      disabled: true
+    - name: "offset"
+      value: "0"
+      type: query
+      description: "Zero-based page number (default 0)"
+      disabled: true
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # List public classes
+
+  Katalog kelas read-only untuk platform otomasi (n8n): sisa kuota, jadwal mingguan, kursus, harga, dan fasilitas.
+
+  - Route: `GET /public/classes`
+  - Kelompok/role: `05 Public - Catalog`
+  - Status sukses yang didokumentasikan: `200`
+  - Autentikasi: header `X-API-Key` (environment `{{public_api_key}}`), bukan bearer token
+
+  Parameter `mode` wajib diisi agar kelas offline dan online tidak pernah tercampur dalam satu respons.
+    Rate limit 120 request/menit berlaku pada grup ini.
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

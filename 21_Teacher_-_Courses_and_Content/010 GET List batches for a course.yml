@@ -1,18 +1,18 @@
 info:
   name: "[GET] List batches for a course"
   type: http
-  seq: 10
+  seq: 7
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: GET
   url: "{{base_url}}/courses/:id/batches"
   params:
-    - name: "id"
+    - name: id
       value: "{{course_id}}"
       type: path
-      description: "Course ID"
+      description: Course ID
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

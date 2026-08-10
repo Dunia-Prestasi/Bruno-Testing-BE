@@ -1,0 +1,53 @@
+info:
+  name: "[GET] Every response carries X-Request-Id"
+  type: http
+  seq: 1
+  tags:
+    - "05 Shared - Request Correlation"
+
+http:
+  method: GET
+  url: "{{base_origin}}/health"
+  auth: none
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("respons membawa header X-Request-Id", function() {
+          const requestId = res.getHeader("x-request-id");
+          expect(requestId, "header X-Request-Id tidak ada pada respons").to.be.a("string");
+          expect(requestId).to.not.be.empty;
+        });
+
+        test("request id yang digenerate berbentuk 32 hex", function() {
+          const requestId = res.getHeader("x-request-id");
+          expect(requestId).to.match(/^[0-9a-f]{32}$/);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Every response carries X-Request-Id
+
+  Memastikan kontrak korelasi request yang dipasang `RequestIDMiddleware`.
+
+  - Route: `GET /health`
+  - Kelompok/role: `05 Shared - Request Correlation`
+  - Status sukses yang didokumentasikan: `200`
+
+  Middleware menetapkan satu id per request, menaruhnya di log server, dan
+  mengembalikannya lewat header `X-Request-Id`. Nilai inilah yang dikutip saat
+  melaporkan error, karena respons `5xx` sengaja tidak menyertakan penyebab
+  aslinya.
+
+  Id yang digenerate server berupa 128 bit acak dalam hex, sehingga panjangnya
+  selalu 32 karakter `0-9a-f`.

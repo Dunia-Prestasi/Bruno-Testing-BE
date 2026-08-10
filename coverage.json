@@ -1,8 +1,8 @@
 {
-  "generated_from": "docs/swagger.json and internal/delivery/http/router.go",
-  "route_count": 209,
-  "swagger_operation_count": 206,
-  "operational_route_count": 3,
+  "generated_from": "internal/delivery/http/router_contract_test.go (authoritative route set), @Router annotations in internal/delivery/http, and the collection's .yml request files",
+  "route_count": 227,
+  "swagger_operation_count": 225,
+  "operational_route_count": 2,
   "routes": [
     {
       "method": "GET",
@@ -14,7 +14,12 @@
       "method": "GET",
       "router_path": "/health",
       "request_file": "00_Public_-_System/002 GET Root health check.yml",
-      "tag": "00 Public - System"
+      "tag": "00 Public - System",
+      "additional_request_files": [
+        "05_Shared_-_Request_Correlation/001 GET Every response carries X-Request-Id.yml",
+        "05_Shared_-_Request_Correlation/002 GET A valid client trace id is reused.yml",
+        "05_Shared_-_Request_Correlation/003 GET A malformed client trace id is replaced.yml"
+      ]
     },
     {
       "method": "GET",
@@ -24,86 +29,80 @@
     },
     {
       "method": "POST",
-      "router_path": "/api/v1/registrations",
-      "request_file": "01_Public_-_Registration/001 POST Submit a new registration.yml",
+      "router_path": "/api/v1/registrations/offline",
+      "request_file": "01_Public_-_Registration/001 POST Submit an offline (walk-in) registration.yml",
       "tag": "01 Public - Registration"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/auth/email-verification/confirm",
-      "request_file": "02_Public_-_Authentication/001 GET Confirm email verification using a token.yml",
-      "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/auth/email-verification/confirm",
-      "request_file": "02_Public_-_Authentication/002 POST Confirm email verification using a token.yml",
+      "request_file": "02_Public_-_Authentication/001 POST Confirm email verification using a token.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/auth/email-verification/request",
-      "request_file": "02_Public_-_Authentication/003 POST Request an email verification link.yml",
+      "request_file": "02_Public_-_Authentication/002 POST Request an email verification link.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/auth/forgot-password",
-      "request_file": "02_Public_-_Authentication/004 POST Request a password reset email.yml",
+      "request_file": "02_Public_-_Authentication/003 POST Request a password reset email.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/auth/google/callback",
-      "request_file": "02_Public_-_Authentication/005 GET Handle Google OAuth callback and complete login.yml",
+      "request_file": "02_Public_-_Authentication/004 GET Handle Google OAuth callback and complete login.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/auth/google/login",
-      "request_file": "02_Public_-_Authentication/006 GET Start Google OAuth login flow.yml",
-      "tag": "02 Public - Authentication"
-    },
-    {
-      "method": "POST",
-      "router_path": "/api/v1/auth/login",
-      "request_file": "02_Public_-_Authentication/007 POST Authenticate a user with email and password.yml",
+      "request_file": "02_Public_-_Authentication/005 GET Start Google OAuth login flow.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/auth/refresh",
-      "request_file": "02_Public_-_Authentication/008 POST Refresh an access token using a refresh token.yml",
+      "request_file": "02_Public_-_Authentication/007 POST Refresh an access token using a refresh token.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/auth/reset-password",
-      "request_file": "02_Public_-_Authentication/009 POST Reset a password using a reset token.yml",
+      "request_file": "02_Public_-_Authentication/008 POST Reset a password using a reset token.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/auth/signup",
-      "request_file": "02_Public_-_Authentication/010 POST Register a new user account.yml",
+      "request_file": "02_Public_-_Authentication/009 POST Register a new user account.yml",
       "tag": "02 Public - Authentication"
     },
     {
       "method": "POST",
+      "router_path": "/api/v1/auth/change-password",
+      "request_file": "03_Shared_-_Session/001 POST Change the authenticated user's password.yml",
+      "tag": "03 Shared - Session"
+    },
+    {
+      "method": "POST",
       "router_path": "/api/v1/auth/logout",
-      "request_file": "03_Shared_-_Session/001 POST Log out the currently authenticated user.yml",
+      "request_file": "03_Shared_-_Session/002 POST Log out the currently authenticated user.yml",
       "tag": "03 Shared - Session"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/auth/me",
-      "request_file": "03_Shared_-_Session/002 GET Get the currently authenticated user's profile and token info.yml",
+      "request_file": "03_Shared_-_Session/003 GET Get the currently authenticated user's profile and token info.yml",
       "tag": "03 Shared - Session"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/protected/health",
-      "request_file": "03_Shared_-_Session/003 GET Protected health check.yml",
+      "request_file": "03_Shared_-_Session/004 GET Protected health check.yml",
       "tag": "03 Shared - Session"
     },
     {
@@ -111,6 +110,18 @@
       "router_path": "/api/v1/payments/midtrans/notification",
       "request_file": "04_Public_-_Payment_Callback/001 POST Receive a Midtrans payment notification (webhook).yml",
       "tag": "04 Public - Payment Callback"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/public/classes",
+      "request_file": "05_Public_-_Catalog/001 GET List public classes.yml",
+      "tag": "05 Public - Catalog"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/public/classes/:id",
+      "request_file": "05_Public_-_Catalog/002 GET Get a public class by ID.yml",
+      "tag": "05 Public - Catalog"
     },
     {
       "method": "GET",
@@ -140,73 +151,145 @@
       "method": "GET",
       "router_path": "/api/v1/announcements/:id",
       "request_file": "11_Student_-_Catalog/001 GET Get an announcement by ID.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "31_Teacher_Admin_-_Announcements/002 GET Get an announcement by ID.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/batches/:batchID",
       "request_file": "11_Student_-_Catalog/002 GET Get a batch by ID.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/002 GET Get a batch by ID.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/batches/:batchID/courses",
+      "request_file": "11_Student_-_Catalog/016 GET List courses covered by a batch.yml",
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/030 GET List courses covered by a batch.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/branches",
       "request_file": "11_Student_-_Catalog/003 GET List branches.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "32_Admin_-_Branches/001 GET List branches.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/branches/:id",
       "request_file": "11_Student_-_Catalog/004 GET Get a branch by ID.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "32_Admin_-_Branches/004 GET Get a branch by ID.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/courses",
       "request_file": "11_Student_-_Catalog/005 GET List courses.yml",
-      "tag": "11 Student - Catalog"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/courses/by-slug/:slug",
-      "request_file": "11_Student_-_Catalog/006 GET Get a course by slug.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/004 GET List courses.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/courses/:id",
       "request_file": "11_Student_-_Catalog/007 GET Get a course by ID.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/008 GET Get a course by ID.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/courses/:id/announcements",
       "request_file": "11_Student_-_Catalog/008 GET List announcements for a course.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "31_Teacher_Admin_-_Announcements/004 GET List announcements for a course.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/courses/:id/batches",
       "request_file": "11_Student_-_Catalog/009 GET List batches for a course.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/010 GET List batches for a course.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/courses/:id/batches/:batchID",
       "request_file": "11_Student_-_Catalog/010 GET Get a batch by ID.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/013 GET Get a batch by ID.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/courses/:id/subscription-plans",
       "request_file": "11_Student_-_Catalog/011 GET List subscription plans for a course.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "34_Admin_-_Billing/006 GET List subscription plans for a course.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/courses/by-slug/:slug",
+      "request_file": "11_Student_-_Catalog/006 GET Get a course by slug.yml",
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/006 GET Get a course by slug.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/packages",
+      "request_file": "11_Student_-_Catalog/013 GET List packages.yml",
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "34_Admin_-_Billing/021 GET List packages.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/packages/:id",
+      "request_file": "11_Student_-_Catalog/014 GET Get a package by ID.yml",
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "34_Admin_-_Billing/024 GET Get a package by ID.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/packages/:id/subscription-plans",
+      "request_file": "11_Student_-_Catalog/015 GET List a package's bundled subscription plans.yml",
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "34_Admin_-_Billing/026 GET List a package's bundled subscription plans.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/subscription-plans/:id",
       "request_file": "11_Student_-_Catalog/012 GET Get a subscription plan by ID.yml",
-      "tag": "11 Student - Catalog"
+      "tag": "11 Student - Catalog",
+      "additional_request_files": [
+        "34_Admin_-_Billing/019 GET Get a subscription plan by ID.yml"
+      ]
     },
     {
       "method": "POST",
@@ -218,19 +301,28 @@
       "method": "GET",
       "router_path": "/api/v1/courses/:id/modules",
       "request_file": "12_Student_-_Learning_Journey/002 GET List modules for a course.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/015 GET List modules for a course.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/lessons",
       "request_file": "12_Student_-_Learning_Journey/003 GET List lessons.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/017 GET List lessons.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/lessons/:id",
       "request_file": "12_Student_-_Learning_Journey/004 GET Get a lesson by ID.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/020 GET Get a lesson by ID.yml"
+      ]
     },
     {
       "method": "POST",
@@ -242,61 +334,91 @@
       "method": "GET",
       "router_path": "/api/v1/modules/:id",
       "request_file": "12_Student_-_Learning_Journey/006 GET Get a module by ID.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/025 GET Get a module by ID.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/modules/:id/lessons",
       "request_file": "12_Student_-_Learning_Journey/007 GET List lessons for a module.yml",
-      "tag": "12 Student - Learning Journey"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/students/me/course-subscriptions",
-      "request_file": "12_Student_-_Learning_Journey/008 GET List course subscriptions for a student.yml",
-      "tag": "12 Student - Learning Journey"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/students/me/enrollments",
-      "request_file": "12_Student_-_Learning_Journey/009 GET List enrollments for a student.yml",
-      "tag": "12 Student - Learning Journey"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/students/me/lesson-progress",
-      "request_file": "12_Student_-_Learning_Journey/010 GET List all lesson progress records for a student.yml",
-      "tag": "12 Student - Learning Journey"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/students/me/lesson-progress/:lessonID",
-      "request_file": "12_Student_-_Learning_Journey/011 GET Get a student's progress for a specific lesson.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "21_Teacher_-_Courses_and_Content/027 GET List lessons for a module.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/students/:id/course-subscriptions",
       "request_file": "12_Student_-_Learning_Journey/012 GET List course subscriptions for a student.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/007 GET List course subscriptions for a student.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/students/:id/enrollments",
       "request_file": "12_Student_-_Learning_Journey/013 GET List enrollments for a student.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/008 GET List enrollments for a student.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/students/:id/lesson-progress",
       "request_file": "12_Student_-_Learning_Journey/014 GET List all lesson progress records for a student.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/009 GET List all lesson progress records for a student.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/students/:id/lesson-progress/:lessonID",
       "request_file": "12_Student_-_Learning_Journey/015 GET Get a student's progress for a specific lesson.yml",
-      "tag": "12 Student - Learning Journey"
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/010 GET Get a student's progress for a specific lesson.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/students/me/course-subscriptions",
+      "request_file": "12_Student_-_Learning_Journey/008 GET List course subscriptions for a student.yml",
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/002 GET List course subscriptions for a student.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/students/me/enrollments",
+      "request_file": "12_Student_-_Learning_Journey/009 GET List enrollments for a student.yml",
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/003 GET List enrollments for a student.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/students/me/lesson-progress",
+      "request_file": "12_Student_-_Learning_Journey/010 GET List all lesson progress records for a student.yml",
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/004 GET List all lesson progress records for a student.yml"
+      ]
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/students/me/lesson-progress/:lessonID",
+      "request_file": "12_Student_-_Learning_Journey/011 GET Get a student's progress for a specific lesson.yml",
+      "tag": "12 Student - Learning Journey",
+      "additional_request_files": [
+        "20_Teacher_-_Students_and_Progress/005 GET Get a student's progress for a specific lesson.yml"
+      ]
     },
     {
       "method": "POST",
@@ -314,25 +436,34 @@
       "method": "GET",
       "router_path": "/api/v1/exams",
       "request_file": "13_Student_-_Assessments/003 GET List exams.yml",
-      "tag": "13 Student - Assessments"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/exams/by-slug/:slug",
-      "request_file": "13_Student_-_Assessments/004 GET Get an exam by slug.yml",
-      "tag": "13 Student - Assessments"
+      "tag": "13 Student - Assessments",
+      "additional_request_files": [
+        "23_Teacher_-_Assessments/003 GET List exams.yml"
+      ]
     },
     {
       "method": "GET",
       "router_path": "/api/v1/exams/:id",
       "request_file": "13_Student_-_Assessments/005 GET Get an exam by ID.yml",
-      "tag": "13 Student - Assessments"
+      "tag": "13 Student - Assessments",
+      "additional_request_files": [
+        "23_Teacher_-_Assessments/007 GET Get an exam by ID.yml"
+      ]
     },
     {
       "method": "POST",
       "router_path": "/api/v1/exams/:id/attempts",
       "request_file": "13_Student_-_Assessments/006 POST Start an exam attempt.yml",
       "tag": "13 Student - Assessments"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/exams/by-slug/:slug",
+      "request_file": "13_Student_-_Assessments/004 GET Get an exam by slug.yml",
+      "tag": "13 Student - Assessments",
+      "additional_request_files": [
+        "23_Teacher_-_Assessments/005 GET Get an exam by slug.yml"
+      ]
     },
     {
       "method": "POST",
@@ -350,7 +481,10 @@
       "method": "GET",
       "router_path": "/api/v1/quizzes/:id",
       "request_file": "13_Student_-_Assessments/009 GET Get a quiz by ID.yml",
-      "tag": "13 Student - Assessments"
+      "tag": "13 Student - Assessments",
+      "additional_request_files": [
+        "23_Teacher_-_Assessments/015 GET Get a quiz by ID.yml"
+      ]
     },
     {
       "method": "POST",
@@ -457,7 +591,7 @@
     {
       "method": "GET",
       "router_path": "/api/v1/students/:id",
-      "request_file": "20_Teacher_-_Students_and_Progress/002 GET Get a student by ID.yml",
+      "request_file": "20_Teacher_-_Students_and_Progress/006 GET Get a student by ID.yml",
       "tag": "20 Teacher - Students and Progress"
     },
     {
@@ -469,103 +603,139 @@
     {
       "method": "PUT",
       "router_path": "/api/v1/batches/:batchID",
-      "request_file": "21_Teacher_-_Courses_and_Content/002 PUT Update a batch.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/003 PUT Update a batch.yml",
+      "tag": "21 Teacher - Courses and Content"
+    },
+    {
+      "method": "DELETE",
+      "router_path": "/api/v1/batches/:batchID/courses/:courseID",
+      "request_file": "21_Teacher_-_Courses_and_Content/031 DELETE Detach a batch from a course.yml",
+      "tag": "21 Teacher - Courses and Content"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/batches/:batchID/courses/:courseID",
+      "request_file": "21_Teacher_-_Courses_and_Content/032 POST Attach an existing batch to another course.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/courses",
-      "request_file": "21_Teacher_-_Courses_and_Content/003 POST Create a new course.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/005 POST Create a new course.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/courses/:id",
-      "request_file": "21_Teacher_-_Courses_and_Content/004 DELETE Delete a course.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/007 DELETE Delete a course.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/courses/:id",
-      "request_file": "21_Teacher_-_Courses_and_Content/005 PUT Update a course.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/009 PUT Update a course.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/courses/:id/batches",
-      "request_file": "21_Teacher_-_Courses_and_Content/006 POST Create a batch for a course.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/011 POST Create a batch for a course.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/courses/:id/batches/:batchID",
-      "request_file": "21_Teacher_-_Courses_and_Content/007 DELETE Delete a batch.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/012 DELETE Delete a batch.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/courses/:id/batches/:batchID",
-      "request_file": "21_Teacher_-_Courses_and_Content/008 PUT Update a batch.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/014 PUT Update a batch.yml",
+      "tag": "21 Teacher - Courses and Content"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/courses/:id/batches/:batchID/packages",
+      "request_file": "21_Teacher_-_Courses_and_Content/035 POST Attach sellable packages to a batch.yml",
+      "tag": "21 Teacher - Courses and Content"
+    },
+    {
+      "method": "DELETE",
+      "router_path": "/api/v1/courses/:id/batches/:batchID/packages/:packageID",
+      "request_file": "21_Teacher_-_Courses_and_Content/036 DELETE Detach a package from a batch.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/courses/:id/modules",
-      "request_file": "21_Teacher_-_Courses_and_Content/009 POST Create a module for a course.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/016 POST Create a module for a course.yml",
+      "tag": "21 Teacher - Courses and Content"
+    },
+    {
+      "method": "DELETE",
+      "router_path": "/api/v1/courses/:id/modules/:moduleID",
+      "request_file": "21_Teacher_-_Courses_and_Content/033 DELETE Detach a module from a course.yml",
+      "tag": "21 Teacher - Courses and Content"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/courses/:id/modules/:moduleID/attach",
+      "request_file": "21_Teacher_-_Courses_and_Content/034 POST Attach an existing module to another course.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/lessons",
-      "request_file": "21_Teacher_-_Courses_and_Content/010 POST Create a new lesson.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/018 POST Create a new lesson.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/lessons/:id",
-      "request_file": "21_Teacher_-_Courses_and_Content/011 DELETE Delete a lesson.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/019 DELETE Delete a lesson.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/lessons/:id",
-      "request_file": "21_Teacher_-_Courses_and_Content/012 PUT Update a lesson.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/021 PUT Update a lesson.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/lessons/:id/material",
-      "request_file": "21_Teacher_-_Courses_and_Content/013 DELETE Delete material file for a lesson.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/022 DELETE Delete material file for a lesson.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/lessons/:id/material",
-      "request_file": "21_Teacher_-_Courses_and_Content/014 PUT Upload material file for a lesson.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/023 PUT Upload material file for a lesson.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/modules/:id",
-      "request_file": "21_Teacher_-_Courses_and_Content/015 DELETE Delete a module.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/024 DELETE Delete a module.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/modules/:id",
-      "request_file": "21_Teacher_-_Courses_and_Content/016 PUT Update a module.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/026 PUT Update a module.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/modules/:id/lessons",
-      "request_file": "21_Teacher_-_Courses_and_Content/017 POST Add a lesson to a module.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/028 POST Add a lesson to a module.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/modules/:id/lessons/:lessonID",
-      "request_file": "21_Teacher_-_Courses_and_Content/018 DELETE Remove a lesson from a module.yml",
+      "request_file": "21_Teacher_-_Courses_and_Content/029 DELETE Remove a lesson from a module.yml",
       "tag": "21 Teacher - Courses and Content"
     },
     {
@@ -578,12 +748,6 @@
       "method": "POST",
       "router_path": "/api/v1/question-banks",
       "request_file": "22_Teacher_-_Question_Bank/002 POST Create a question bank.yml",
-      "tag": "22 Teacher - Question Bank"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/question-banks/by-slug/:slug",
-      "request_file": "22_Teacher_-_Question_Bank/003 GET Get a question bank by slug.yml",
       "tag": "22 Teacher - Question Bank"
     },
     {
@@ -602,6 +766,12 @@
       "method": "PUT",
       "router_path": "/api/v1/question-banks/:id",
       "request_file": "22_Teacher_-_Question_Bank/006 PUT Update a question bank.yml",
+      "tag": "22 Teacher - Question Bank"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/question-banks/by-slug/:slug",
+      "request_file": "22_Teacher_-_Question_Bank/003 GET Get a question bank by slug.yml",
       "tag": "22 Teacher - Question Bank"
     },
     {
@@ -647,12 +817,6 @@
       "tag": "22 Teacher - Question Bank"
     },
     {
-      "method": "GET",
-      "router_path": "/api/v1/question-grade-levels/by-code/:code",
-      "request_file": "22_Teacher_-_Question_Bank/014 GET Get a question grade level by code.yml",
-      "tag": "22 Teacher - Question Bank"
-    },
-    {
       "method": "DELETE",
       "router_path": "/api/v1/question-grade-levels/:id",
       "request_file": "22_Teacher_-_Question_Bank/015 DELETE Delete a question grade level.yml",
@@ -668,6 +832,12 @@
       "method": "PUT",
       "router_path": "/api/v1/question-grade-levels/:id",
       "request_file": "22_Teacher_-_Question_Bank/017 PUT Update a question grade level.yml",
+      "tag": "22 Teacher - Question Bank"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/question-grade-levels/by-code/:code",
+      "request_file": "22_Teacher_-_Question_Bank/014 GET Get a question grade level by code.yml",
       "tag": "22 Teacher - Question Bank"
     },
     {
@@ -757,86 +927,92 @@
     {
       "method": "POST",
       "router_path": "/api/v1/exams",
-      "request_file": "23_Teacher_-_Assessments/003 POST Create an exam.yml",
+      "request_file": "23_Teacher_-_Assessments/004 POST Create an exam.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/exams/:id",
-      "request_file": "23_Teacher_-_Assessments/004 DELETE Delete an exam.yml",
+      "request_file": "23_Teacher_-_Assessments/006 DELETE Delete an exam.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/exams/:id",
-      "request_file": "23_Teacher_-_Assessments/005 PUT Update an exam.yml",
+      "request_file": "23_Teacher_-_Assessments/008 PUT Update an exam.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/exams/:id/sections",
-      "request_file": "23_Teacher_-_Assessments/006 POST Create an exam section.yml",
+      "request_file": "23_Teacher_-_Assessments/009 POST Create an exam section.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/exams/:id/sections/:sectionID",
-      "request_file": "23_Teacher_-_Assessments/007 DELETE Delete an exam section.yml",
+      "request_file": "23_Teacher_-_Assessments/010 DELETE Delete an exam section.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/exams/:id/sections/:sectionID",
-      "request_file": "23_Teacher_-_Assessments/008 PUT Update an exam section.yml",
+      "request_file": "23_Teacher_-_Assessments/011 PUT Update an exam section.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/exams/:id/sections/:sectionID/questions",
-      "request_file": "23_Teacher_-_Assessments/009 POST Add a question to an exam section.yml",
+      "request_file": "23_Teacher_-_Assessments/012 POST Add a question to an exam section.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/exams/:id/sections/:sectionID/questions/:questionID",
-      "request_file": "23_Teacher_-_Assessments/010 DELETE Remove a question from an exam section.yml",
+      "request_file": "23_Teacher_-_Assessments/013 DELETE Remove a question from an exam section.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/quizzes/:id",
-      "request_file": "23_Teacher_-_Assessments/011 DELETE Delete a quiz.yml",
+      "request_file": "23_Teacher_-_Assessments/014 DELETE Delete a quiz.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/quizzes/:id",
-      "request_file": "23_Teacher_-_Assessments/012 PUT Update a quiz.yml",
+      "request_file": "23_Teacher_-_Assessments/016 PUT Update a quiz.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/quizzes/:id/questions",
-      "request_file": "23_Teacher_-_Assessments/013 POST Add a question to a quiz.yml",
+      "request_file": "23_Teacher_-_Assessments/017 POST Add a question to a quiz.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/quizzes/:id/questions/:questionID",
-      "request_file": "23_Teacher_-_Assessments/014 DELETE Remove a question from a quiz.yml",
+      "request_file": "23_Teacher_-_Assessments/018 DELETE Remove a question from a quiz.yml",
       "tag": "23 Teacher - Assessments"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/announcements/:id",
       "request_file": "24_Teacher_-_Announcements_and_Media/001 DELETE Delete an announcement.yml",
-      "tag": "24 Teacher - Announcements and Media"
+      "tag": "24 Teacher - Announcements and Media",
+      "additional_request_files": [
+        "31_Teacher_Admin_-_Announcements/001 DELETE Delete an announcement.yml"
+      ]
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/announcements/:id",
       "request_file": "24_Teacher_-_Announcements_and_Media/002 PUT Update an announcement.yml",
-      "tag": "24 Teacher - Announcements and Media"
+      "tag": "24 Teacher - Announcements and Media",
+      "additional_request_files": [
+        "31_Teacher_Admin_-_Announcements/003 PUT Update an announcement.yml"
+      ]
     },
     {
       "method": "POST",
@@ -899,87 +1075,66 @@
       "tag": "25 Teacher - Enrollment and Certificates"
     },
     {
+      "method": "GET",
+      "router_path": "/api/v1/admin/users",
+      "request_file": "30_Admin_-_Users_and_Registrations/[GET] List all users all.yml",
+      "tag": "30 Admin - Users and Registrations",
+      "additional_request_files": [
+        "30_Admin_-_Users_and_Registrations/[GET] List all users filter.yml"
+      ]
+    },
+    {
       "method": "POST",
       "router_path": "/api/v1/admin/users",
-      "request_file": "30_Admin_-_Users_and_Registrations/001 POST Create a new user account (admin_teacher, etc.).yml",
-      "tag": "30 Admin - Users and Registrations"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/protected/registrations",
-      "request_file": "30_Admin_-_Users_and_Registrations/002 GET List registrations.yml",
-      "tag": "30 Admin - Users and Registrations"
-    },
-    {
-      "method": "DELETE",
-      "router_path": "/api/v1/protected/registrations/:id",
-      "request_file": "30_Admin_-_Users_and_Registrations/003 DELETE Delete a registration.yml",
-      "tag": "30 Admin - Users and Registrations"
-    },
-    {
-      "method": "GET",
-      "router_path": "/api/v1/protected/registrations/:id",
-      "request_file": "30_Admin_-_Users_and_Registrations/004 GET Get a registration by ID.yml",
+      "request_file": "30_Admin_-_Users_and_Registrations/002 POST Create a new user account (admin_teacher, etc.).yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "PATCH",
-      "router_path": "/api/v1/protected/registrations/:id",
-      "request_file": "30_Admin_-_Users_and_Registrations/005 PATCH Update a registration.yml",
+      "router_path": "/api/v1/admin/users/:id",
+      "request_file": "30_Admin_-_Users_and_Registrations/004 PATCH Update an existing user account.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "PUT",
-      "router_path": "/api/v1/protected/registrations/:id",
-      "request_file": "30_Admin_-_Users_and_Registrations/006 PUT Update a registration.yml",
-      "tag": "30 Admin - Users and Registrations"
-    },
-    {
-      "method": "POST",
-      "router_path": "/api/v1/protected/registrations/:id/approve",
-      "request_file": "30_Admin_-_Users_and_Registrations/007 POST Approve a registration.yml",
-      "tag": "30 Admin - Users and Registrations"
-    },
-    {
-      "method": "POST",
-      "router_path": "/api/v1/protected/registrations/:id/reject",
-      "request_file": "30_Admin_-_Users_and_Registrations/008 POST Reject a registration.yml",
+      "router_path": "/api/v1/admin/users/:id",
+      "request_file": "30_Admin_-_Users_and_Registrations/003 PUT Update an existing user account.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/students",
-      "request_file": "30_Admin_-_Users_and_Registrations/009 POST Create a new student.yml",
-      "tag": "30 Admin - Users and Registrations"
-    },
-    {
-      "method": "POST",
-      "router_path": "/api/v1/students/bulk-import",
-      "request_file": "30_Admin_-_Users_and_Registrations/010 POST Bulk import offline students from an Excel file.yml",
+      "request_file": "30_Admin_-_Users_and_Registrations/010 POST Create a new student.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "PATCH",
       "router_path": "/api/v1/students/:id",
-      "request_file": "30_Admin_-_Users_and_Registrations/011 PATCH Update a student by ID.yml",
+      "request_file": "30_Admin_-_Users_and_Registrations/012 PATCH Update a student by ID.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/students/:id/avatar",
-      "request_file": "30_Admin_-_Users_and_Registrations/012 DELETE Delete a student's avatar by ID.yml",
+      "request_file": "30_Admin_-_Users_and_Registrations/013 DELETE Delete a student's avatar by ID.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/students/:id/avatar",
-      "request_file": "30_Admin_-_Users_and_Registrations/013 PUT Upload a student's avatar by ID.yml",
+      "request_file": "30_Admin_-_Users_and_Registrations/014 PUT Upload a student's avatar by ID.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
       "method": "PATCH",
       "router_path": "/api/v1/students/:id/status",
-      "request_file": "30_Admin_-_Users_and_Registrations/014 PATCH Activate or deactivate a student.yml",
+      "request_file": "30_Admin_-_Users_and_Registrations/015 PATCH Activate or deactivate a student.yml",
+      "tag": "30 Admin - Users and Registrations"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/students/bulk-import",
+      "request_file": "30_Admin_-_Users_and_Registrations/011 POST Bulk import offline students from an Excel file.yml",
       "tag": "30 Admin - Users and Registrations"
     },
     {
@@ -1049,51 +1204,57 @@
       "tag": "31 Admin - Roles and Permissions"
     },
     {
+      "method": "PUT",
+      "router_path": "/api/v1/rbac/roles/:id/permissions",
+      "request_file": "31_Admin_-_Roles_and_Permissions/012 PUT Replace all permissions granted to a role.yml",
+      "tag": "31 Admin - Roles and Permissions"
+    },
+    {
       "method": "DELETE",
       "router_path": "/api/v1/rbac/roles/:id/permissions/:permissionID",
-      "request_file": "31_Admin_-_Roles_and_Permissions/012 DELETE Revoke a permission from a role.yml",
+      "request_file": "31_Admin_-_Roles_and_Permissions/013 DELETE Revoke a permission from a role.yml",
       "tag": "31 Admin - Roles and Permissions"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/rbac/roles/:id/permissions/:permissionID",
-      "request_file": "31_Admin_-_Roles_and_Permissions/013 PUT Grant a permission to a role.yml",
+      "request_file": "31_Admin_-_Roles_and_Permissions/014 PUT Grant a permission to a role.yml",
       "tag": "31 Admin - Roles and Permissions"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/rbac/users/:userID/roles",
-      "request_file": "31_Admin_-_Roles_and_Permissions/014 GET List roles assigned to a user.yml",
+      "request_file": "31_Admin_-_Roles_and_Permissions/015 GET List roles assigned to a user.yml",
       "tag": "31 Admin - Roles and Permissions"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/rbac/users/:userID/roles/:roleID",
-      "request_file": "31_Admin_-_Roles_and_Permissions/015 DELETE Revoke a role from a user.yml",
+      "request_file": "31_Admin_-_Roles_and_Permissions/016 DELETE Revoke a role from a user.yml",
       "tag": "31 Admin - Roles and Permissions"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/rbac/users/:userID/roles/:roleID",
-      "request_file": "31_Admin_-_Roles_and_Permissions/016 PUT Grant a role to a user.yml",
+      "request_file": "31_Admin_-_Roles_and_Permissions/017 PUT Grant a role to a user.yml",
       "tag": "31 Admin - Roles and Permissions"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/branches",
-      "request_file": "32_Admin_-_Branches/001 POST Create a new branch.yml",
+      "request_file": "32_Admin_-_Branches/002 POST Create a new branch.yml",
       "tag": "32 Admin - Branches"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/branches/:id",
-      "request_file": "32_Admin_-_Branches/002 DELETE Delete a branch.yml",
+      "request_file": "32_Admin_-_Branches/003 DELETE Delete a branch.yml",
       "tag": "32 Admin - Branches"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/branches/:id",
-      "request_file": "32_Admin_-_Branches/003 PUT Update a branch.yml",
+      "request_file": "32_Admin_-_Branches/005 PUT Update a branch.yml",
       "tag": "32 Admin - Branches"
     },
     {
@@ -1165,79 +1326,109 @@
     {
       "method": "POST",
       "router_path": "/api/v1/courses/:id/subscription-plans",
-      "request_file": "34_Admin_-_Billing/006 POST Create a subscription plan for a course.yml",
+      "request_file": "34_Admin_-_Billing/007 POST Create a subscription plan for a course.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/orders",
-      "request_file": "34_Admin_-_Billing/007 POST Create an order.yml",
+      "request_file": "34_Admin_-_Billing/008 POST Create an order.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/orders/:id",
-      "request_file": "34_Admin_-_Billing/008 DELETE Delete an order.yml",
+      "request_file": "34_Admin_-_Billing/009 DELETE Delete an order.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/orders/:id",
-      "request_file": "34_Admin_-_Billing/009 GET Get an order by ID.yml",
+      "request_file": "34_Admin_-_Billing/010 GET Get an order by ID.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/orders/:id",
-      "request_file": "34_Admin_-_Billing/010 PUT Update an order's status_expiry.yml",
+      "request_file": "34_Admin_-_Billing/011 PUT Update an order's status_expiry.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/orders/:id/items",
-      "request_file": "34_Admin_-_Billing/011 POST Add a line item to an order.yml",
+      "request_file": "34_Admin_-_Billing/012 POST Add a line item to an order.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/orders/:id/payments",
-      "request_file": "34_Admin_-_Billing/012 GET List payments for an order.yml",
+      "request_file": "34_Admin_-_Billing/013 GET List payments for an order.yml",
+      "tag": "34 Admin - Billing"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/packages",
+      "request_file": "34_Admin_-_Billing/022 POST Create a package.yml",
+      "tag": "34 Admin - Billing"
+    },
+    {
+      "method": "DELETE",
+      "router_path": "/api/v1/packages/:id",
+      "request_file": "34_Admin_-_Billing/023 DELETE Delete a package.yml",
+      "tag": "34 Admin - Billing"
+    },
+    {
+      "method": "PUT",
+      "router_path": "/api/v1/packages/:id",
+      "request_file": "34_Admin_-_Billing/025 PUT Update a package.yml",
+      "tag": "34 Admin - Billing"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/packages/:id/subscription-plans",
+      "request_file": "34_Admin_-_Billing/027 POST Bundle subscription plans into a package.yml",
+      "tag": "34 Admin - Billing"
+    },
+    {
+      "method": "DELETE",
+      "router_path": "/api/v1/packages/:id/subscription-plans/:planID",
+      "request_file": "34_Admin_-_Billing/028 DELETE Remove a subscription plan from a package.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/payments",
-      "request_file": "34_Admin_-_Billing/013 GET List payments by status (admin).yml",
+      "request_file": "34_Admin_-_Billing/014 GET List payments by status (admin).yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "GET",
       "router_path": "/api/v1/payments/:id",
-      "request_file": "34_Admin_-_Billing/014 GET Get a payment by ID.yml",
+      "request_file": "34_Admin_-_Billing/015 GET Get a payment by ID.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/payments/:id/confirm",
-      "request_file": "34_Admin_-_Billing/015 POST Confirm a manual (transfer_cash) payment.yml",
+      "request_file": "34_Admin_-_Billing/016 POST Confirm a manual (transfer_cash) payment.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "POST",
       "router_path": "/api/v1/payments/:id/reject",
-      "request_file": "34_Admin_-_Billing/016 POST Reject a manual (transfer_cash) payment.yml",
+      "request_file": "34_Admin_-_Billing/017 POST Reject a manual (transfer_cash) payment.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "DELETE",
       "router_path": "/api/v1/subscription-plans/:id",
-      "request_file": "34_Admin_-_Billing/017 DELETE Delete a subscription plan.yml",
+      "request_file": "34_Admin_-_Billing/018 DELETE Delete a subscription plan.yml",
       "tag": "34 Admin - Billing"
     },
     {
       "method": "PUT",
       "router_path": "/api/v1/subscription-plans/:id",
-      "request_file": "34_Admin_-_Billing/018 PUT Update a subscription plan.yml",
+      "request_file": "34_Admin_-_Billing/020 PUT Update a subscription plan.yml",
       "tag": "34 Admin - Billing"
     },
     {
@@ -1248,15 +1439,50 @@
     },
     {
       "method": "GET",
+      "router_path": "/api/v1/audit-logs/:id",
+      "request_file": "35_Admin_-_Audit_Logs/003 GET Get an audit log entry by ID.yml",
+      "tag": "35 Admin - Audit Logs"
+    },
+    {
+      "method": "GET",
       "router_path": "/api/v1/audit-logs/entities/:schema/:table/:entityID",
       "request_file": "35_Admin_-_Audit_Logs/002 GET List audit logs for a specific entity.yml",
       "tag": "35 Admin - Audit Logs"
     },
     {
       "method": "GET",
-      "router_path": "/api/v1/audit-logs/:id",
-      "request_file": "35_Admin_-_Audit_Logs/003 GET Get an audit log entry by ID.yml",
-      "tag": "35 Admin - Audit Logs"
+      "router_path": "/api/v1/admin/dashboard/learning-analytics",
+      "request_file": "36_Admin_-_Dashboard_and_Reports/002 GET Dashboard learning analytics.yml",
+      "tag": "36 Admin - Dashboard and Reports"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/admin/dashboard/summary",
+      "request_file": "36_Admin_-_Dashboard_and_Reports/001 GET Dashboard summary statistics.yml",
+      "tag": "36 Admin - Dashboard and Reports"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/admin/reports/orders/export",
+      "request_file": "36_Admin_-_Dashboard_and_Reports/004 GET Export orders to Excel.yml",
+      "tag": "36 Admin - Dashboard and Reports"
+    },
+    {
+      "method": "GET",
+      "router_path": "/api/v1/admin/reports/students/export",
+      "request_file": "36_Admin_-_Dashboard_and_Reports/003 GET Export students to Excel.yml",
+      "tag": "36 Admin - Dashboard and Reports"
+    },
+    {
+      "method": "POST",
+      "router_path": "/api/v1/auth/login",
+      "request_file": "00_Test_Setup/001 Login Admin (simpan token).yml",
+      "tag": "setup",
+      "additional_request_files": [
+        "00_Test_Setup/002 Login Teacher (simpan token).yml",
+        "00_Test_Setup/003 Login Student (simpan token).yml",
+        "02_Public_-_Authentication/006 POST Authenticate a user with email and password.yml"
+      ]
     }
   ]
 }

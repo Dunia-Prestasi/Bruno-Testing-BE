@@ -1,27 +1,27 @@
 info:
   name: "[POST] Create a batch for a course"
   type: http
-  seq: 11
+  seq: 8
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: POST
   url: "{{base_url}}/courses/:id/batches"
   params:
-    - name: "id"
+    - name: id
       value: "{{course_id}}"
       type: path
-      description: "Course ID"
+      description: Course ID
   body:
     type: json
     data: |-
       {
-        "end_date": "2026-12-31T00:00:00Z",
-        "is_active": true,
-        "max_students": 30,
-        "name": "Data Dummy Bruno",
-        "start_date": "2026-07-17T00:00:00Z"
+        "batches": [
+          { "name": "Batch A - Juli 2026", "branch_id": "{{branch_id}}", "max_students": 30 },
+          { "name": "Batch B - Agustus 2026", "branch_id": "{{branch_id}}", "max_students": 25 },
+          { "name": "Batch C - September 2026", "branch_id": "{{branch_id}}", "max_students": 40 }
+        ]
       }
   auth:
     type: bearer

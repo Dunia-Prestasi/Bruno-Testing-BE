@@ -1,18 +1,18 @@
 info:
   name: "[DELETE] Delete a batch"
   type: http
-  seq: 1
+  seq: 11
   tags:
-    - "21 Teacher - Courses and Content"
+    - 21 Teacher - Courses and Content
 
 http:
   method: DELETE
   url: "{{base_url}}/batches/:batchID"
   params:
-    - name: "batchID"
+    - name: batchID
       value: "{{batch_id}}"
       type: path
-      description: "Batch ID"
+      description: Batch ID
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

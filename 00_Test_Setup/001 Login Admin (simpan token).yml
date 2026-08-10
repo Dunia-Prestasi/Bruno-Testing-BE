@@ -23,25 +23,27 @@ runtime:
     - name: admin_password
       value: superadmin123
     - name: base_url
-      value: localhost:8080/api/v1
+      value: https://dupres.baguswedanta.com/api/v1
   scripts:
     - type: after-response
       code: |-
-        if (res.status === 200 && res.body && res.body.data) {
-          bru.setEnvVar("admin_access_token", res.body.data.access_token || "");
-          bru.setEnvVar("admin_refresh_token", res.body.data.refresh_token || "");
-          bru.setEnvVar("access_token", res.body.data.access_token || "");
-          bru.setEnvVar("refresh_token", res.body.data.refresh_token || "");
-          if (res.body.data.user && res.body.data.user.id) {
-            bru.setEnvVar("admin_user_id", res.body.data.user.id);
-            bru.setEnvVar("user_id", res.body.data.user.id);
+        if (res.status === 200 && res.body) {
+          const data = res.body.data || res.body;
+          bru.setEnvVar("admin_access_token", data.access_token || "");
+          bru.setEnvVar("admin_refresh_token", data.refresh_token || "");
+          bru.setEnvVar("access_token", data.access_token || "");
+          bru.setEnvVar("refresh_token", data.refresh_token || "");
+          if (data.user && data.user.id) {
+            bru.setEnvVar("admin_user_id", data.user.id);
+            bru.setEnvVar("user_id", data.user.id);
           }
         }
     - type: tests
       code: |-
         test("login berhasil", function() {
           expect(res.status).to.equal(200);
-          expect(res.body.data.access_token).to.be.a("string");
+          const data = res.body.data || res.body;
+          expect(data.access_token).to.be.a("string");
         });
 
 settings:

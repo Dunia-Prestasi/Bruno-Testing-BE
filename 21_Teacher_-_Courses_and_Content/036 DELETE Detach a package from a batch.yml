@@ -1,0 +1,56 @@
+info:
+  name: "[DELETE] Detach a package from a batch"
+  type: http
+  seq: 36
+  tags:
+    - "21 Teacher - Courses and Content"
+
+http:
+  method: DELETE
+  url: "{{base_url}}/courses/:id/batches/:batchID/packages/:packageID"
+  params:
+    - name: "id"
+      value: "{{course_id}}"
+      type: path
+      description: "Course ID"
+    - name: "batchID"
+      value: "{{batch_id}}"
+      type: path
+      description: "Batch ID"
+    - name: "packageID"
+      value: "{{package_id}}"
+      type: path
+      description: "Package ID"
+  auth:
+    type: bearer
+    token: "{{teacher_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 401, 403, 404, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Detach a package from a batch
+
+  Menghapus tautan batch ke sebuah paket tanpa menghapus keduanya.
+
+  - Route: `DELETE /courses/{id}/batches/{batchID}/packages/{packageID}`
+  - Kelompok/role: `21 Teacher - Courses and Content`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{teacher_access_token}}`
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

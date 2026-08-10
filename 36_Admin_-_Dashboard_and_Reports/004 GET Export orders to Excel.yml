@@ -1,0 +1,65 @@
+info:
+  name: "[GET] Export orders to .xlsx"
+  type: http
+  seq: 4
+  tags:
+    - "36 Admin - Dashboard and Reports"
+
+http:
+  method: GET
+  url: "{{base_url}}/admin/reports/orders/export"
+  params:
+    - name: "start_date"
+      value: "2026-07-01"
+      type: query
+      description: "Order dibuat sejak, YYYY-MM-DD WIB (default: 30 hari ke belakang)"
+      disabled: true
+    - name: "end_date"
+      value: "2026-07-31"
+      type: query
+      description: "Order dibuat sampai inklusif, YYYY-MM-DD WIB (default: hari ini)"
+      disabled: true
+    - name: "status"
+      value: "paid"
+      type: query
+      description: "Filter status order: pending, paid, cancelled, expired"
+      disabled: true
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Export orders to .xlsx
+
+  Mengunduh laporan penagihan sebagai workbook Excel.
+
+  - Route: `GET /admin/reports/orders/export`
+  - Kelompok/role: `36 Admin - Dashboard and Reports`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}` — butuh permission `reports:financial`, bukan sekadar `reports:read`
+
+  Sheet ini memuat nominal, sehingga digerbangi `reports:financial`. Teacher yang hanya punya `reports:read`
+    menerima 403.
+  
+    Tiap baris melaporkan pembayaran yang paling menjelaskan status order — pembayaran lunas diprioritaskan
+    di atas percobaan gagal yang lebih baru.
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

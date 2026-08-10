@@ -3,24 +3,24 @@ info:
   type: http
   seq: 17
   tags:
-    - "23 Teacher - Assessments"
+    - 23 Teacher - Assessments
 
 http:
   method: POST
   url: "{{base_url}}/quizzes/:id/questions"
   params:
-    - name: "id"
+    - name: id
       value: "{{quiz_id}}"
       type: path
-      description: "Quiz ID"
+      description: Quiz ID
   body:
     type: json
-    data: |-
-      {
+    data: |2-
+        {"questions": [{
         "order_number": 1,
         "question_id": "{{question_id}}",
         "score": 10
-      }
+      }]}
   auth:
     type: bearer
     token: "{{teacher_access_token}}"

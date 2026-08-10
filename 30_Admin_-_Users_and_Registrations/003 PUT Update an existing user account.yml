@@ -1,23 +1,30 @@
 info:
-  name: "[POST] Reject a registration"
+  name: "[PUT] Update an existing user account"
   type: http
-  seq: 10
+  seq: 2
   tags:
     - 30 Admin - Users and Registrations
 
 http:
-  method: POST
-  url: "{{base_url}}/protected/registrations/:id/reject"
+  method: PUT
+  url: "{{base_url}}/admin/users/:id"
   params:
     - name: id
-      value: "{{registration_id}}"
+      value: "{{user_id}}"
       type: path
-      description: Registration ID
+      description: User ID
   body:
     type: json
     data: |-
       {
-        "reason": "Data dummy ditolak untuk pengujian"
+        "email": "{{new_user_email}}",
+        "is_active": true,
+        "name": "Data Dummy Bruno",
+        "phone": "081234567890",
+        "role": "teacher",
+        "roles": [
+          "teacher"
+        ]
       }
   auth:
     type: bearer
@@ -42,15 +49,13 @@ settings:
   maxRedirects: 5
 
 docs: |-
-  # Reject a registration
+  # Update an existing user account
 
-  Request siap pakai untuk pengujian manual API Dunia Prestasi.
+  Updates user profile details, phone number, active status (soft delete/deactivation), and assigned role(s).
 
-  - Route: `POST /protected/registrations/{id}/reject`
+  - Route: `PUT /admin/users/{id}`
   - Kelompok/role: `30 Admin - Users and Registrations`
   - Status sukses yang didokumentasikan: `200`
   - Bearer token: environment `{{admin_access_token}}`
-
-  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.
 
   Body dan ID menggunakan data dummy/environment. Sesuaikan variabel ID setelah resource terkait dibuat.

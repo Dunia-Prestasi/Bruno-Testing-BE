@@ -3,7 +3,7 @@ info:
   type: http
   seq: 2
   tags:
-    - "15 Student - Orders and Payments"
+    - 15 Student - Orders and Payments
 
 http:
   method: POST
@@ -12,10 +12,8 @@ http:
     type: json
     data: |-
       {
-        "coupon_code": "contoh coupon code",
         "items": [
           {
-            "exam_id": "{{exam_id}}",
             "subscription_plan_id": "{{subscription_plan_id}}"
           }
         ]

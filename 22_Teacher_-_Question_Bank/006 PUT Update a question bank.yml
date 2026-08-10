@@ -3,16 +3,16 @@ info:
   type: http
   seq: 6
   tags:
-    - "22 Teacher - Question Bank"
+    - 22 Teacher - Question Bank
 
 http:
   method: PUT
   url: "{{base_url}}/question-banks/:id"
   params:
-    - name: "id"
+    - name: id
       value: "{{question_bank_id}}"
       type: path
-      description: "Question Bank ID"
+      description: Question Bank ID
   body:
     type: json
     data: |-
@@ -23,7 +23,7 @@ http:
           "source": "bruno",
           "value": "dummy"
         },
-        "name": "Data Dummy Bruno",
+        "name": "Data Dummy Bruno Update",
         "slug": "{{question_bank_slug}}"
       }
   auth:

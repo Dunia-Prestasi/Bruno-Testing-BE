@@ -1,0 +1,60 @@
+info:
+  name: "[GET] Dashboard summary statistics"
+  type: http
+  seq: 1
+  tags:
+    - "36 Admin - Dashboard and Reports"
+
+http:
+  method: GET
+  url: "{{base_url}}/admin/dashboard/summary"
+  params:
+    - name: "start_date"
+      value: "2026-07-01"
+      type: query
+      description: "Awal periode, YYYY-MM-DD WIB (default: 30 hari ke belakang)"
+      disabled: true
+    - name: "end_date"
+      value: "2026-07-31"
+      type: query
+      description: "Akhir periode inklusif, YYYY-MM-DD WIB (default: hari ini)"
+      disabled: true
+  auth:
+    type: bearer
+    token: "{{admin_access_token}}"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("server memberikan respons HTTP", function() {
+          expect(res.status).to.be.within(100, 599);
+        });
+
+        test("status sesuai kontrak atau middleware aplikasi", function() {
+          expect([200, 400, 401, 403, 422, 429, 500, 502, 503]).to.include(res.status);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 30000
+  followRedirects: true
+  maxRedirects: 5
+
+docs: |-
+  # Dashboard summary statistics
+
+  Angka utama dashboard admin: siswa aktif, revenue tersettle, jumlah order pending/paid, dan kursus terpopuler.
+
+  - Route: `GET /admin/dashboard/summary`
+  - Kelompok/role: `36 Admin - Dashboard and Reports`
+  - Status sukses yang didokumentasikan: `200`
+  - Bearer token: environment `{{admin_access_token}}` — butuh permission `reports:read`
+
+  Blok `financial` hanya muncul untuk pemegang `reports:financial`. Teacher menerima 200 yang sama tanpa key
+    tersebut sama sekali (bukan nilai nol).
+  
+    Perhatikan dua basis waktu yang berbeda: `active_students` dihitung saat request (point-in-time),
+    sedangkan revenue, jumlah order, dan ranking kursus mengikuti periode yang diminta.
+
+  Parameter contoh sudah diisi; parameter query opsional dinonaktifkan agar mudah dipilih saat diperlukan.

@@ -1,0 +1,7 @@
+info:
+  name: "05 Shared - Request Correlation"
+  type: folder
+  seq: 26
+
+request:
+  auth: inherit
